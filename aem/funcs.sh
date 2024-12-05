@@ -555,6 +555,12 @@ apollo_create_container_volume_options() {
   # localtime
   volume_opts+=('-v' '/etc/localtime:/etc/localtime:ro')
 
+  volume_opts+=('-v' '/home/sameh/CLion-2024.3/clion-2024.3:/home/sameh/clion')
+
+  volume_opts+=('-v' '/home/sameh/.config/JetBrains:/home/sameh/.config/JetBrains')
+
+  volume_opts+=('-v' '/home/sameh/.cache:/home/sameh/.cache')
+  
   # auca
   auca_sdk_so="/usr/lib/libapollo-auca-sdk.so.1"
   if [[ -x ${auca_sdk_so} ]]; then
@@ -840,11 +846,18 @@ apollo_enter_container() {
   # TODO: support custom shell
   docker exec \
     -u "${APOLLO_ENV_CONTAINER_USER}" \
-    ${envs[@]} \
+    "${envs[@]}" \
     -w "${APOLLO_ENV_WORKROOT}" \
     -it \
     "${APOLLO_ENV_CONTAINER_NAME}" \
-    /bin/bash
+    /bin/bash -c "
+        sudo apt-get update && \
+        sudo apt-get install -y libxtst6 libxtst-dev && \
+        echo 'fs.inotify.max_user_watches=524288' | sudo tee -a /etc/sysctl.conf && \
+        sudo sysctl -p && \
+        exec bash
+    "
+
 
   xhost -local:root 1> /dev/null 2>&1
 }
