@@ -1,0 +1,48 @@
+cc_test(
+    name = "CANDBCSignalSchemaTest",
+    srcs = [
+        "CANDBCSignalSchemaTest.cpp",
+    ],
+    deps = [
+        "//platform/io/can/dbc:CANDatabase",
+        "//platform/test:BaseTest",
+        "@com_google_googletest//:gtest",
+    ],
+)
+
+cc_test(
+    name = "CANDBCMessageSchemaTest",
+    srcs = [
+        "CANDBCMessageSchemaTest.cpp",
+    ],
+    deps = [
+        "//platform/io/can/dbc:CANDatabase",
+        "//platform/test:BaseTest",
+        "@com_google_googletest//:gtest",
+    ],
+)
+
+cc_test(
+    name = "CANDBCMessageTest",
+    srcs = [
+        "CANDBCMessageTest.cpp",
+    ],
+    deps = [
+        "//platform/io/can:CAN",
+        "//platform/io/can/dbc:CANDatabase",
+        "//platform/test:BaseTest",
+        "@com_google_googletest//:gtest",
+    ],
+)
+
+cc_test(
+    name = "CANDBCTest",
+    srcs = [
+        "CANDBCTest.cpp",
+    ],
+    deps = [
+        "//platform/io/can/dbc:CANDatabase",
+        "//platform/test:BaseTest",
+        "@com_google_googletest//:gtest",
+    ],
+)

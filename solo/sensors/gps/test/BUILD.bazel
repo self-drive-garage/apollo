@@ -1,0 +1,9 @@
+cc_test(
+    name = "GPSSensorTest",
+    srcs = ["GPSSensorTest.cpp"],
+    deps = [
+      "//platform/sensors/gps:GPSSensor",
+      "//platform/sensors/mocks:MockGPSReceiver",
+      "@com_google_googletest//:gtest",
+    ],
+)

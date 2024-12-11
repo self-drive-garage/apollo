@@ -1,0 +1,17 @@
+module platform
+{
+    module sensors {
+        struct GPSData {
+            double latitude;
+            double longitude;
+            double altitude;
+            double speed;
+            double track;
+            double climb;
+            int64 timestamp_nanoseconds;
+            boolean valid;
+            int64 status;
+        };
+        #pragma keylist GPSData timestamp_nanoseconds
+    };
+};
