@@ -1,0 +1,67 @@
+package(default_visibility = ["//visibility:public"])
+
+# cc_library(
+#     name = "GPSDeviceInterface",
+#     hdrs = ["GPSDeviceInterface.hpp"],
+#     deps = [
+#         ":GPSData",
+#         "//platform/io:Status",
+#     ],
+# )
+
+cc_library(
+    name = "GPSData",
+    hdrs = ["idl/GPSData.hpp"],
+    srcs = ["idl/GPSData.cpp"],
+    deps = [
+        "//platform/io:Status",
+        "@cyclone_dds",
+    ],
+)
+
+cc_library(
+    name = "UbxG7020KTGPS",
+    hdrs = ["UbxG7020KTGPS.hpp"],
+    srcs = ["UbxG7020KTGPS.cpp"],
+    deps = [
+        ":GPSData",
+        "//platform/io:Status",
+        "@libgpsmm",
+        "@spdlog",
+    ],
+)
+
+cc_library(
+    name = "GPSSensor",
+    hdrs = ["GPSSensor.hpp"],
+    srcs = ["GPSSensor.cpp"],
+    deps = [
+        ":GPSData",
+        ":UbxG7020KTGPS",
+        "//platform/io:Status",
+        "@spdlog",
+    ],
+)
+
+# cc_library(
+#     name = "GPSReceiverConcept",
+#     srcs = ["GPSReceiverConcept.hpp"],
+#     deps = [
+#         ":GPSData",
+#         "//platform/io:Status",
+#     ],
+# )
+
+cc_library(
+    name = "GPSModule",
+    hdrs = ["GPSModule.hpp"],
+    # srcs = ["GPSModule.cpp"],
+    deps = [
+        ":GPSData",
+        ":GPSSensor",
+        "//platform/io:Status",
+        "//platform/transport:Transport",
+        "//platform/transport:TransportPublisher",
+        "//platform:TemporaryGlobals",
+    ],
+)

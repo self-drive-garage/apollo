@@ -1,0 +1,13 @@
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "Joystick",
+    srcs = ["Joystick.cpp"],
+    hdrs = ["Joystick.hpp"],
+    deps = [
+        "//platform/messages:VehicleControlCommand",
+        "//platform/transport:Transport",
+        "//platform/transport:TransportPublisher",
+        "@spdlog",
+    ],
+)

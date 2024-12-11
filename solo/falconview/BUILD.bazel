@@ -1,0 +1,30 @@
+cc_library(
+    name = "frontend",
+    srcs = [
+        "frontend/Window.cpp",
+        "frontend/BottomMenu.cpp",
+        "frontend/BEVWindow.cpp",
+    ],
+    hdrs = [
+        "frontend/Window.hpp",
+        "frontend/BottomMenu.hpp",
+        "frontend/BEVWindow.hpp",
+        "frontend/UIConstants.hpp",
+    ],
+    deps = [
+        "//falconview/imgui",
+    ],
+)
+
+cc_binary(
+    name = "falconview",
+    srcs = [
+        "Application.cpp",
+        "Application.hpp",
+        "main.cpp",
+    ],
+    deps = [
+        ":frontend",
+        "//falconview/imgui",
+    ],
+)
