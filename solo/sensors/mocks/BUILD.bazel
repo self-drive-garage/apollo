@@ -1,0 +1,12 @@
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "MockGPSReceiver",
+    srcs = ["MockGPSReceiver.hpp"],
+    deps = [
+        "//platform/sensors/gps:GPSDeviceInterface",
+        "//platform/sensors/gps:GPSData",
+        "//platform/io:Status",
+        "@com_google_googletest//:gtest",
+    ],
+)

@@ -1,0 +1,38 @@
+cc_test(
+    name = "SocketCANDeviceTest",
+    srcs = ["SocketCANDeviceTest.cpp"],
+    deps = [
+        "//platform/io:MockSocketOps",
+        "//platform/io/can:CANExceptions",
+        "//platform/io/can:SocketCANDevice",
+        "//platform/test:BaseTest",
+        "@com_google_googletest//:gtest",
+    ],
+)
+
+cc_test(
+    name = "SocketCANMessageTest",
+    srcs = ["SocketCANMessageTest.cpp"],
+    deps = [
+        "//platform/io/can:CAN",
+        "//platform/io/can:SocketCANMessage",
+        "//platform/io/can/dbc:CANDatabase",
+        "//platform/test:BaseTest",
+        "@com_google_googletest//:gtest",
+    ],
+)
+
+cc_test(
+    name = "CANClientTest",
+    srcs = ["CANClientTest.cpp"],
+    deps = [
+        "//platform/io:MockSocketOps",
+        "//platform/io:Status",
+        "//platform/io/can:CAN",
+        "//platform/io/can:CANClient",
+        "//platform/io/can:SocketCANDevice",
+        "//platform/io/can/dbc:SubaruGlobalCANDBC",
+        "//platform/test:BaseTest",
+        "@com_google_googletest//:gtest",
+    ],
+)

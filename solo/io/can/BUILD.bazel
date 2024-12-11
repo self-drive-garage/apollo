@@ -1,0 +1,52 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "CAN",
+    hdrs = ["CAN.hpp"],
+    deps = [],
+)
+
+cc_library(
+    name = "CANExceptions",
+    hdrs = [
+        "exceptions/CANExceptions.hpp",
+    ],
+    deps = [],
+)
+
+cc_library(
+    name = "SocketCANMessage",
+    srcs = ["SocketCANMessage.cpp"],
+    hdrs = ["SocketCANMessage.hpp"],
+    deps = [
+        "//platform/io/can/dbc:CANDatabase",
+        "@spdlog",
+    ],
+)
+
+cc_library(
+    name = "SocketCANDevice",
+    srcs = ["SocketCANDevice.cpp"],
+    hdrs = ["SocketCANDevice.hpp"],
+    deps = [
+        ":CANExceptions",
+        ":SocketCANMessage",
+        "//platform/io:ISocketOps",
+        "//platform/io:SocketOps",
+        "@spdlog",
+    ],
+)
+
+cc_library(
+    name = "CANClient",
+    hdrs = ["CANClient.hpp"],
+    deps = [
+        "//platform/io:ISocketOps",
+        "//platform/io:SocketOps",
+        "//platform/io/can/dbc:CANDatabase",
+        "@spdlog",
+        "@units",
+    ],
+)

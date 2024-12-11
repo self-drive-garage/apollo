@@ -85,3 +85,10 @@ tools/FlameGraph
 modules/studio_connector
 
 #WORKSPACE
+modules/perception/data/models/apollo_bevnet_onnx/apollo_bevnet.onnx
+modules/perception/data/models/smoke_torch/smoke_libtorch_model.pth
+modules/perception/data/models/yolox3d_onnx/yolo_libtorch_model_3d.pth
+modules/perception/data/models/yolox3d_onnx/yolo_onnx_model_3d.onnx
+modules/perception/data/models/yolox3d_onnx/yolox3d_onnx_model_2d.onnx
+modules/perception/data/models/yolox3d_onnx/yolox_onnx_kitti_2d.onnx
+

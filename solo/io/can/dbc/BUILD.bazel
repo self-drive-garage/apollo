@@ -1,0 +1,43 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
+
+package(default_visibility = ["//visibility:public"])
+
+genrule(
+    name = "subaru_global_can_dbc",
+    srcs = ["data/subaru_global_2017_generated.dbc"],
+    outs = ["SubaruGlobalCANDBC.hpp"],
+    cmd = "(echo '#pragma once \n constexpr char subaruGlobalCANDBC[] = R\"delimiter(' && cat $(SRCS) && echo ')delimiter\";' ) > $@",
+)
+
+cc_library(
+    name = "SubaruGlobalCANDBC",
+    hdrs = [":subaru_global_can_dbc"],
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "CANDatabase",
+    srcs = [
+        "CANDBC.cpp",
+        "CANDBCMessage.cpp",
+        "CANDBCMessageSchema.cpp",
+        "CANDBCSignalSchema.cpp",
+    ],
+    hdrs = [
+        "CANDBC.hpp",
+        "CANDBCMessage.hpp",
+        "CANDBCMessageSchema.hpp",
+        "CANDBCSignalSchema.hpp",
+        ":subaru_global_can_dbc",
+    ],
+    deps = [
+        "//platform/io/can:CAN",
+        "@cyclone_dds",
+    ],
+)
+
+cc_library(
+    name = "MockCANDBC",
+    srcs = ["mocks/MockCANDBC.hpp"],
+    deps = ["@com_google_googletest//:gtest"],
+)
