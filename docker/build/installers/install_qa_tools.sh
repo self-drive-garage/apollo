@@ -49,7 +49,15 @@ bash ${CURR_DIR}/install_gperftools.sh
 
 ## Linters and formatters for Python
 # pylint/autopep8/pyflakes
-pip3_install pycodestyle \
+apt update && apt install -y \
+    python3-pip \
+    python3-apt \
+    wget \
+    rsync \
+    figlet \
+    nethogs \
+    sysstat
+pip3 install pycodestyle \
     flake8 \
     yapf
 

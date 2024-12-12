@@ -38,9 +38,9 @@ if ldconfig -p | grep -q "libproj.so"; then
     exit 0
 fi
 
-VERSION="7.1.0"
+VERSION="9.5.1"
 PKG_NAME="proj-${VERSION}.tar.gz"
-CHECKSUM="876151e2279346f6bdbc63bd59790b48733496a957bccd5e51b640fdd26eaa8d"
+CHECKSUM="a8395f9696338ffd46b0feb603edbb730fad6746fba77753c77f7f997345e3d3"
 DOWNLOAD_LINK="https://github.com/OSGeo/PROJ/releases/download/${VERSION}/${PKG_NAME}"
 
 download_if_not_cached "$PKG_NAME" "$CHECKSUM" "$DOWNLOAD_LINK"

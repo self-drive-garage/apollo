@@ -27,56 +27,64 @@ if ldconfig -p | grep -q "libboost_system.so" ; then
     exit 0
 fi
 
+apt update && apt install -y \
+    libboost-all-dev \
+    libgflags-dev \
+    libgoogle-glog-dev \
+    libproj-dev \
+    libxtst6 \
+    libxtst-dev
+
 # PreReq for Unicode support for Boost.Regex
 #    icu-devtools \
 #    libicu-dev
-apt_get_update_and_install \
-    liblzma-dev \
-    libbz2-dev \
-    libzstd-dev
+# apt_get_update_and_install \
+#     liblzma-dev \
+#     libbz2-dev \
+#     libzstd-dev
 
 # Ref: https://www.boost.org/
-VERSION="1_74_0"
+# VERSION="1_74_0"
 
-PKG_NAME="boost_${VERSION}.tar.bz2"
-DOWNLOAD_LINK="https://boostorg.jfrog.io/artifactory/main/release/${VERSION//_/.}/source/boost_${VERSION}.tar.bz2"
-CHECKSUM="83bfc1507731a0906e387fc28b7ef5417d591429e51e788417fe9ff025e116b1"
+# PKG_NAME="boost_${VERSION}.tar.bz2"
+# DOWNLOAD_LINK="https://boostorg.jfrog.io/artifactory/main/release/${VERSION//_/.}/source/boost_${VERSION}.tar.bz2"
+# CHECKSUM="83bfc1507731a0906e387fc28b7ef5417d591429e51e788417fe9ff025e116b1"
 
-download_if_not_cached "${PKG_NAME}" "${CHECKSUM}" "${DOWNLOAD_LINK}"
+# download_if_not_cached "${PKG_NAME}" "${CHECKSUM}" "${DOWNLOAD_LINK}"
 
-tar xjf "${PKG_NAME}"
+# tar xjf "${PKG_NAME}"
 
-py3_ver="$(py3_version)"
+# py3_ver="$(py3_version)"
 
-# Ref: https://www.boost.org/doc/libs/1_73_0/doc/html/mpi/getting_started.html
-pushd "boost_${VERSION}"
-    # A) For mpi built from source
-    #  echo "using mpi : ${SYSROOT_DIR}/bin/mpicc ;" > user-config.jam
-    # B) For mpi installed via apt
-    # echo "using mpi ;" > user-config.jam
-    ./bootstrap.sh \
-        --with-python-version=${py3_ver} \
-        --prefix="${SYSROOT_DIR}" \
-        --without-icu
+# # Ref: https://www.boost.org/doc/libs/1_73_0/doc/html/mpi/getting_started.html
+# pushd "boost_${VERSION}"
+#     # A) For mpi built from source
+#     #  echo "using mpi : ${SYSROOT_DIR}/bin/mpicc ;" > user-config.jam
+#     # B) For mpi installed via apt
+#     # echo "using mpi ;" > user-config.jam
+#     ./bootstrap.sh \
+#         --with-python-version=${py3_ver} \
+#         --prefix="${SYSROOT_DIR}" \
+#         --without-icu
 
-    ./b2 -d+2 -q -j$(nproc) \
-        --without-graph_parallel \
-        --without-mpi \
-        variant=release \
-        link=shared \
-        threading=multi \
-        install
-        #--user-config=user-config.jam
-popd
-ldconfig
+#     ./b2 -d+2 -q -j$(nproc) \
+#         --without-graph_parallel \
+#         --without-mpi \
+#         variant=release \
+#         link=shared \
+#         threading=multi \
+#         install
+#         #--user-config=user-config.jam
+# popd
+# ldconfig
 
-# Clean up
-rm -rf "boost_${VERSION}" "${PKG_NAME}"
+# # Clean up
+# rm -rf "boost_${VERSION}" "${PKG_NAME}"
 
-if [[ -n "${CLEAN_DEPS}" ]]; then
-    apt_get_remove  \
-        liblzma-dev \
-        libbz2-dev \
-        libzstd-dev
-fi
+# if [[ -n "${CLEAN_DEPS}" ]]; then
+#     apt_get_remove  \
+#         liblzma-dev \
+#         libbz2-dev \
+#         libzstd-dev
+# fi
 

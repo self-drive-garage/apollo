@@ -56,8 +56,8 @@ TARGET_ARCH="$(uname -m)"
 
 VERSION=8.2.0
 PKG_NAME="VTK-8.2.0.tar.gz"
-CHECKSUM="34c3dc775261be5e45a8049155f7228b6bd668106c72a3c435d95730d17d57bb"
-DOWNLOAD_LINK=https://www.vtk.org/files/release/8.2/VTK-8.2.0.tar.gz
+CHECKSUM="16f3ffd65fafd68fab469bcb091395bf5432617c7db27cbce86a737bf09ec5b0"
+DOWNLOAD_LINK=https://vtk.org/files/release/9.4/VTK-9.4.0.tar.gz
 
 download_if_not_cached "${PKG_NAME}" "${CHECKSUM}" "${DOWNLOAD_LINK}"
 

@@ -87,8 +87,8 @@ if [[ "${MY_STAGE}" != "runtime" ]]; then
         build-essential \
         autoconf    \
         automake    \
-        gcc-7       \
-        g++-7       \
+        gcc       \
+        g++       \
         gdb         \
         libtool     \
         patch       \

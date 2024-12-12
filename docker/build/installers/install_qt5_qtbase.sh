@@ -27,7 +27,7 @@ CURR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 VERSION="5.12.9"
 MAJOR_VERSION="${VERSION%.*}"
 
-QT5_PREFIX="/usr/local/qt5"
+QT5_PREFIX="/usr/local/qt6"
 
 if [[ "${BUILD_TYPE}" == "download" ]]; then
     if [[ "$LSB_RELEASE" == "20.04" ]]; then
@@ -75,16 +75,17 @@ else
         libxcb-* \
         libxcb* \
 
-    PKG_NAME="qtbase-everywhere-src-${VERSION}.tar.xz"
-    CHECKSUM="331dafdd0f3e8623b51bd0da2266e7e7c53aa8e9dc28a8eb6f0b22609c5d337e"
-    DOWNLOAD_LINK="http://master.qt.io/archive/qt/${MAJOR_VERSION}/${VERSION}/submodules/${PKG_NAME}"
-    download_if_not_cached "${PKG_NAME}" "${CHECKSUM}" "${DOWNLOAD_LINK}"
+    # PKG_NAME="qtbase-everywhere-src-${VERSION}.tar.xz"
+    # CHECKSUM="331dafdd0f3e8623b51bd0da2266e7e7c53aa8e9dc28a8eb6f0b22609c5d337e"
+    # DOWNLOAD_LINK="http://master.qt.io/archive/qt/${MAJOR_VERSION}/${VERSION}/submodules/${PKG_NAME}"
+    # download_if_not_cached "${PKG_NAME}" "${CHECKSUM}" "${DOWNLOAD_LINK}"
+    wget https://download.qt.io/archive/qt/6.3/6.3.0/submodules/qtbase-everywhere-src-6.3.0.tar.xz
+    
+    tar xJf qtbase-everywhere-src-6.3.0.tar.xz
 
-    tar xJf ${PKG_NAME}
+    mkdir -p "/usr/local/Qt-6.3.0"
 
-    mkdir -p "/usr/local/Qt-${VERSION}"
-
-    pushd qtbase-everywhere-src-${VERSION} >/dev/null
+    pushd qtbase-everywhere-src-6.3.0 >/dev/null
         find . -name "*.pr[io]" | xargs sed -i 's/python/&3/'
 
         pushd src/3rdparty
@@ -120,7 +121,7 @@ else
         make -j$(nproc)
         make install
 
-        ln -sfnv "Qt-${VERSION}" "${QT5_PREFIX}"
+        ln -sfnv "Qt-6.3.0" "${QT5_PREFIX}"
 
         # PostInstall
         find $QT5_PREFIX/ -name \*.prl \
@@ -143,8 +144,8 @@ add_to_path \"\${QT5_PATH}/bin\"
 echo "${__mytext}" | tee -a "${APOLLO_PROFILE}"
 
 if [[ "${BUILD_TYPE}" == "build" ]]; then
-    ok "Successfully installed Qt5 qtbase-${VERSION} from src."
-    rm -rf qtbase-everywhere-src-${VERSION} ${PKG_NAME}
+    ok "Successfully installed Qt5 qtbase-6 from src."
+    rm -rf qtbase-everywhere-src-6.3.0.tar.xz
 else
     ok "Successfully pre-built Qt5 qtbase-${VERSION}."
 fi

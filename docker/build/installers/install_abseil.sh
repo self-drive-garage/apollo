@@ -29,20 +29,21 @@ if ldconfig -p | grep -q "libabsl_base.so" ; then
 fi
 
 # Install abseil.
-VERSION="20200225.2"
-PKG_NAME="abseil-cpp-${VERSION}.tar.gz"
-DOWNLOAD_LINK="https://apollo-system.cdn.bcebos.com/archive/6.0/${VERSION}.tar.gz"
-CHECKSUM="f41868f7a938605c92936230081175d1eae87f6ea2c248f41077c8f88316f111"
+# VERSION="20200225.2"
+# PKG_NAME="abseil-cpp-${VERSION}.tar.gz"
+#DOWNLOAD_LINK="https://apollo-system.cdn.bcebos.com/archive/6.0/${VERSION}.tar.gz"
+#CHECKSUM="f41868f7a938605c92936230081175d1eae87f6ea2c248f41077c8f88316f111"
 
-download_if_not_cached "${PKG_NAME}" "${CHECKSUM}" "${DOWNLOAD_LINK}"
+wget https://github.com/abseil/abseil-cpp/archive/refs/tags/20240722.0.tar.gz
+#download_if_not_cached "${PKG_NAME}" "${CHECKSUM}" "${DOWNLOAD_LINK}"
 
 DEST_DIR="/opt/apollo/absl"
 
-tar xzf "${PKG_NAME}"
-pushd "abseil-cpp-${VERSION}"
+tar xzf 20240722.0.tar.gz
+pushd "abseil-cpp-20240722.0"
     mkdir build && cd build
     cmake .. \
-        -DBUILD_SHARED_LIBS=ON \
+        -DBUILD_SHARED_LIBS=ON \ 
         -DCMAKE_CXX_STANDARD=14 \
         -DCMAKE_INSTALL_PREFIX=${DEST_DIR}
     cmake --build . --target install

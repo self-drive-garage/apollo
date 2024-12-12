@@ -60,7 +60,7 @@ ldconfig
 
 cd ../../python
 # Cf. https://github.com/protocolbuffers/protobuf/tree/master/python
-python setup.py install --cpp_implementation
+#python setup.py install --cpp_implementation
 
 popd
 

@@ -1,4 +1,5 @@
-FROM nvcr.io/nvidia/l4t-jetpack:r35.2.1 
+FROM nvcr.io/nvidia/l4t-jetpack:r36.3.0
+
 ENV CUDA_LITE 11.4
 
 RUN apt-get update && apt-get install -y --no-install-recommends sudo gnupg2 curl ca-certificates \
@@ -30,23 +31,23 @@ ENV TENSORRT_VERSION 8.5.2
 COPY rcfiles /opt/apollo/rcfiles
 COPY installers /opt/apollo/installers
 
-RUN apt update && DEBIAN_FRONTEND=noninteractive TZ="Asian/China" apt-get -y install tzdata
+RUN apt update && DEBIAN_FRONTEND=noninteractive TZ="America/New_York" apt-get -y install tzdata
 
-RUN bash /opt/apollo/installers/install_minimal_environment.sh cn 20.04
+RUN bash /opt/apollo/installers/install_minimal_environment.sh us 22.04
 RUN bash /opt/apollo/installers/install_bazel.sh
 RUN bash /opt/apollo/installers/install_cmake.sh build
 
 RUN bash /opt/apollo/installers/install_llvm_clang.sh
 RUN bash /opt/apollo/installers/install_cyber_deps.sh build
 RUN bash /opt/apollo/installers/install_qa_tools.sh
-RUN bash /opt/apollo/installers/install_visualizer_deps.sh build 20.04
+RUN bash /opt/apollo/installers/install_visualizer_deps.sh build 22.04
 
 RUN bash /opt/apollo/installers/install_geo_adjustment.sh us
 
 RUN bash /opt/apollo/installers/install_modules_base.sh
 RUN bash /opt/apollo/installers/install_ordinary_modules.sh build
 RUN bash /opt/apollo/installers/install_drivers_deps.sh build
-RUN bash /opt/apollo/installers/install_dreamview_deps.sh cn
+RUN bash /opt/apollo/installers/install_dreamview_deps.sh us
 RUN bash /opt/apollo/installers/install_contrib_deps.sh build
 RUN bash /opt/apollo/installers/install_gpu_support.sh
 RUN bash /opt/apollo/installers/install_release_deps.sh

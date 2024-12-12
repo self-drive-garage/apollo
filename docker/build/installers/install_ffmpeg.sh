@@ -47,9 +47,9 @@ apt_get_update_and_install \
     libx264-dev \
     libnuma-dev
 
-VERSION="4.3.1"
+VERSION="7.1"
 PKG_NAME="ffmpeg-${VERSION}.tar.xz"
-CHECKSUM="ad009240d46e307b4e03a213a0f49c11b650e445b1f8be0dda2a9212b34d2ffb"
+CHECKSUM="40973d44970dbc83ef302b0609f2e74982be2d85916dd2ee7472d30678a7abe6"
 DOWNLOAD_LINK="http://ffmpeg.org/releases/ffmpeg-${VERSION}.tar.xz"
 download_if_not_cached "${PKG_NAME}" "${CHECKSUM}" "${DOWNLOAD_LINK}"
 
