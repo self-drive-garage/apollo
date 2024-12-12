@@ -171,13 +171,13 @@ export GLOG_alsologtostderr=1
 - 使用 Launch 文件启动（推荐）
 
 ```bash
-cyber_launch start cyber/examples/common_component_example/common.launch
+cyber_launch start cyber/examples/common_component_example/joystick.launch
 ```
 
 - 使用 DAG 文件启动
 
 ```bash
-mainboard -d cyber/examples/common_component_example/common.dag
+mainboard -d cyber/examples/common_component_example/joystick.dag
 ```
 
 ### 提供通道数据给组件处理

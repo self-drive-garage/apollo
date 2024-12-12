@@ -10,7 +10,6 @@
 #include "modules/common/status/status.h"
 
 namespace solo::drivers::serial {
-
 Status BoostSerialDeviceManager::initializeDevice(const std::string& port) {
   std::lock_guard<std::mutex> lock(deviceMutex_);
   if (deviceMap_.find(port) != deviceMap_.end() &&
@@ -19,7 +18,7 @@ Status BoostSerialDeviceManager::initializeDevice(const std::string& port) {
     return deviceMap_[port]->initialize();
   }
   AINFO << "Device already initialized or not created.";
-  return Status::OK();  // Already initialized or device not created
+  return Status::OK(); // Already initialized or device not created
 }
 
 Status BoostSerialDeviceManager::openDevice(const std::string& port) {
@@ -31,6 +30,7 @@ Status BoostSerialDeviceManager::openDevice(const std::string& port) {
   }
   AWARN << "Device already open or not created.";
   // return {STATUS::ERROR, ERROR::NONE}; // Device already open or not created
+  return Status(ErrorCode::CONTROL_ERROR, "Device already opened.");
 }
 
 Status BoostSerialDeviceManager::closeDevice(const std::string& port) {
@@ -41,7 +41,7 @@ Status BoostSerialDeviceManager::closeDevice(const std::string& port) {
     return deviceMap_[port]->close();
   }
   AINFO << "Device was not open or not created.";
-  return Status::OK();  // Device was not open or not created
+  return Status::OK(); // Device was not open or not created
 }
 
 std::tuple<Status, std::optional<std::string>>
@@ -78,18 +78,18 @@ Status BoostSerialDeviceManager::createDevice(const std::string& port,
       const boost::system::error_code& ec = e.code();
       if (ec == boost::asio::error::already_open) {
         AWARN << "Device already open, attempting to close and reopen.";
-        deviceMap_[port]->close();        // Try to close it first
-        return deviceMap_[port]->open();  // Attempt to reopen
+        deviceMap_[port]->close(); // Try to close it first
+        return deviceMap_[port]->open(); // Attempt to reopen
       } else if (ec == boost::asio::error::no_such_device ||
                  ec.value() == ENOENT) {
         std::string errorMessage = "Please make sure the device " + port +
                                    " is correct and accessible.";
-        AERROR << "No such device: {}", port;
+        AERROR << "No such device: {}" << port;
         // return {STATUS::ERROR, ERROR::ERROR_OPENING_DEVICE, errorMessage};
         return Status(ErrorCode::CONTROL_ERROR,
                       std::string("ERROR_OPENING_DEVICE") + errorMessage);
       } else {
-        AERROR << "Communication error while creating device: {}", e.what();
+        AERROR << "Communication error while creating device: {}" << e.what();
         // return {STATUS::ERROR, ERROR::COMMUNICATION_ERROR,
         // std::string(e.what())};
         return Status(
@@ -98,7 +98,7 @@ Status BoostSerialDeviceManager::createDevice(const std::string& port,
       }
     }
   }
-  return Status::OK();  // Device already created
+  return Status::OK(); // Device already created
 }
 
 Status BoostSerialDeviceManager::writeToDevice(const std::string& port,
@@ -113,5 +113,4 @@ Status BoostSerialDeviceManager::writeToDevice(const std::string& port,
   AINFO << "Writing to device: " << toHexString(data);
   return deviceMap_[port]->write(data);
 }
-
-}  // namespace solo::drivers::serial
+} // namespace solo::drivers::serial

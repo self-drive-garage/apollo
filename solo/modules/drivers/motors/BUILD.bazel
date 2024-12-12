@@ -7,17 +7,19 @@ apollo_cc_library(
     srcs = ["SabertoothMotorDriver.cpp"],
     hdrs = ["SabertoothMotorDriver.hpp"],
     deps = [
-        "//platform/io:Status",
-        "//platform/io/serial:BoostSerialDeviceManager",
+        "//modules/common/status",
+        "//solo/modules/drivers/serial:BoostSerialDeviceManager",
     ],
 )
 
 apollo_cc_library(
     name = "SteeringServoMotorController",
-    srcs = ["SteeringServoMotorController.cpp"],
+    srcs = [
+        "PCA9685Config.hpp",
+        "SteeringServoMotorController.cpp",
+    ],
     hdrs = ["SteeringServoMotorController.hpp"],
     deps = [
-        "//platform/hardware/motors:PCA9685Config",
-        "//platform/io:Status",
+        "//modules/common/status",
     ],
 )

@@ -490,7 +490,8 @@ apollo_determine_image() {
       fi
       tag="${tag:-latest}"
     fi
-    image="${repo}:${tag}"
+    #image="${repo}:${tag}"
+    image="registry.baidubce.com/apollo/apollo-dev-gpu:10.0-u22"
   fi
   export APOLLO_ENV_CONTAINER_IMAGE="${image}"
   echo "${image}"
@@ -555,11 +556,11 @@ apollo_create_container_volume_options() {
   # localtime
   volume_opts+=('-v' '/etc/localtime:/etc/localtime:ro')
 
-  volume_opts+=('-v' '/home/sameh/CLion-2024.3/clion-2024.3:/home/sameh/clion')
+  volume_opts+=('-v' "/apollo-solo/CLion-2024.3/clion-2024.3:/home/${APOLLO_ENV_CONTAINER_USER}/clion")
 
-  volume_opts+=('-v' '/home/sameh/.config/JetBrains:/home/sameh/.config/JetBrains')
+  volume_opts+=('-v' "/apollo-solo/.config:/home/${APOLLO_ENV_CONTAINER_USER}/.config")
 
-  volume_opts+=('-v' '/home/sameh/.cache:/home/sameh/.cache')
+  volume_opts+=('-v' "/apollo-solo/.cache:/home/${APOLLO_ENV_CONTAINER_USER}/.cache")
   
   # auca
   auca_sdk_so="/usr/lib/libapollo-auca-sdk.so.1"
@@ -589,7 +590,7 @@ apollo_create_container_volume_options() {
 
 
   # volume of user shared configurations' and resources' directories
-  volume_opts+=('-v' "${HOME}/.apollo:/home/${APOLLO_ENV_CONTAINER_USER}/.apollo")
+  volume_opts+=('-v' "/apollo-solo/.apollo:/home/${USER}/.apollo")
 
   # custom volumes
   for x in "${APOLLO_ENV_MOUNTS[@]}"; do
@@ -697,7 +698,7 @@ apollo_container_created_post_action() {
           chown -R ${APOLLO_ENV_CONTAINER_USER}:${APOLLO_ENV_CONTAINER_GROUP} /apollo_workspace/data/"
   apollo_container_execute_cmd "buildtool -v"
   # TODO: migrate to active script like host env
-  apollo_container_execute_cmd "echo [[ -e /opt/apollo/neo/setup.sh ]] \&\& source /opt/apollo/neo/setup.sh >> /home/${APOLLO_ENV_CONTAINER_USER}/.bashrc"
+  apollo_container_execute_cmd "echo [[ -e /opt/apollo/neo/setup.sh ]] \&\& source /opt/apollo/neo/setup.sh >> /home/${USER}/.bashrc"
   apollo_container_download_arm_lib
 }
 export -f apollo_container_created_post_action
@@ -850,14 +851,7 @@ apollo_enter_container() {
     -w "${APOLLO_ENV_WORKROOT}" \
     -it \
     "${APOLLO_ENV_CONTAINER_NAME}" \
-    /bin/bash -c "
-        sudo apt-get update && \
-        sudo apt-get install -y libxtst6 libxtst-dev && \
-        echo 'fs.inotify.max_user_watches=524288' | sudo tee -a /etc/sysctl.conf && \
-        sudo sysctl -p && \
-        exec bash
-    "
-
+    /bin/bash
 
   xhost -local:root 1> /dev/null 2>&1
 }

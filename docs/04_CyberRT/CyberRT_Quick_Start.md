@@ -186,13 +186,13 @@ You can choose either of the two ways to launch the newly built component:
 - Launch with the launch file (recommended)
 
 ```bash
-cyber_launch start cyber/examples/common_component_example/common.launch
+cyber_launch start cyber/examples/common_component_example/joystick.launch
 ```
 
 - Launch with the DAG file
 
 ```bash
-mainboard -d cyber/examples/common_component_example/common.dag
+mainboard -d cyber/examples/common_component_example/joystick.dag
 ```
 
 ### _Feed_ channel data for the component to process
