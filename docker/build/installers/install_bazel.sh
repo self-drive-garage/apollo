@@ -119,17 +119,17 @@ apt-get update -y
 # Install golang, a prerequisite for installing Bazelisk and Buildifier.
 apt-get -y install golang
 
-if [[ "$TARGET_ARCH" == "aarch64" ]];
+if [[ "$TARGET_ARCH" == "aarch64" ]]; then
     # Download Bazelisk, a Bazel launcher that automatically downloads and runs the correct version of Bazel.
-    wget https://github.com/bazelbuild/bazelisk/releases/download/v1.25.0/bazelisk-linux-amd64
+    wget -O bazel https://github.com/bazelbuild/bazelisk/releases/download/v1.25.0/bazelisk-linux-amd64
 else
-    wget https://github.com/bazelbuild/bazelisk/releases/download/v1.25.0/bazelisk-linux-amd64
+    wget -O bazel https://github.com/bazelbuild/bazelisk/releases/download/v1.25.0/bazelisk-linux-amd64
 fi
 
 
 # Move the downloaded Bazelisk to /usr/local/bin and rename it to 'bazel',
 # making it accessible as the 'bazel' command.
-mv bazelisk-darwin-arm64 /usr/local/bin/bazel
+mv bazel /usr/local/bin/
 
 # Grant executable permissions to Bazelisk to allow it to run as a program.
 chmod +x /usr/local/bin/bazel
