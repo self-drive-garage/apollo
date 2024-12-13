@@ -55,7 +55,7 @@ RUN bash /opt/apollo/installers/install_bazel.sh \
          && /opt/apollo/installers/install_cyber_deps.sh build \
          && /opt/apollo/installers/install_qa_tools.sh \
          && /opt/apollo/installers/install_visualizer_deps.sh \
-         && /opt/apollo/installers/install_geo_adjustme.sh us \
+         && /opt/apollo/installers/install_geo_adjustment.sh us \
          && /opt/apollo/installers/install_modules_base.sh
 
 RUN bash /opt/apollo/installers/install_ordinary_modules.sh build
