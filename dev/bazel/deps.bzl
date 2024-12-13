@@ -19,7 +19,6 @@ load("//third_party/eigen3:init.bzl", apollo_neo_3rd_eigen3_repo = "init")
 load("//third_party/pcl:init.bzl", apollo_neo_3rd_pcl_repo = "init")
 load("//third_party/localization_msf:init.bzl", apollo_neo_3rd_localization_msf_repo = "init")
 load("//third_party/qt5:init.bzl", apollo_neo_3rd_qt5_repo = "init")
-load("//third_party/protobuf:init.bzl", apollo_neo_3rd_protobuf_repo = "init")
 def clean_dep(dep):
     return str(Label(dep))
 def system_python3_tk_repo():
@@ -370,36 +369,6 @@ def apollo_neo_3rd_portaudio_repo():
         build_file = clean_dep("//dev/bazel:3rd-portaudio.BUILD"),
         path = "/opt/apollo/neo/packages/3rd-portaudio/latest",
     )
-def apollo_neo_3rd_fastdds_wrap_repo():
-    native.new_local_repository(
-        name = "fastdds",
-        build_file = clean_dep("//dev/bazel:3rd-fastdds-wrap.BUILD"),
-        path = "/opt/apollo/neo/packages/3rd-fastdds-wrap/latest",
-    )
-def system_libopus0_repo():
-    native.new_local_repository(
-        name = "libopus0",
-        build_file = clean_dep("//dev/bazel:libopus0.BUILD"),
-        path = "/usr/include",
-    )
-def system_libx265_dev_repo():
-    native.new_local_repository(
-        name = "libx265-dev",
-        build_file = clean_dep("//dev/bazel:libx265-dev.BUILD"),
-        path = "/usr/include",
-    )
-def system_libtheora0_repo():
-    native.new_local_repository(
-        name = "libtheora0",
-        build_file = clean_dep("//dev/bazel:libtheora0.BUILD"),
-        path = "/usr/include",
-    )
-def apollo_neo_3rd_ffmpeg_repo():
-    native.new_local_repository(
-        name = "ffmpeg",
-        build_file = clean_dep("//dev/bazel:3rd-ffmpeg.BUILD"),
-        path = "/opt/apollo/neo/packages/3rd-ffmpeg/latest",
-    )
 def init_deps():
     apollo_neo_3rd_rules_python_repo()
     apollo_neo_3rd_py_repo()
@@ -422,7 +391,6 @@ def init_deps():
     apollo_neo_3rd_pcl_repo()
     apollo_neo_3rd_localization_msf_repo()
     apollo_neo_3rd_qt5_repo()
-    apollo_neo_3rd_protobuf_repo()
     system_python3_tk_repo()
     system_bvar_repo()
     system_libhdf5_dev_repo()
@@ -481,8 +449,3 @@ def init_deps():
     system_libmp3lame0_repo()
     system_libass9_repo()
     apollo_neo_3rd_portaudio_repo()
-    apollo_neo_3rd_fastdds_wrap_repo()
-    system_libopus0_repo()
-    system_libx265_dev_repo()
-    system_libtheora0_repo()
-    apollo_neo_3rd_ffmpeg_repo()

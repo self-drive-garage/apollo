@@ -1,14 +1,14 @@
-#include "solo/modules/joystick/Joystick.hpp"
+#include "solo/modules/joystick/JoystickComponent.hpp"
 #include "modules/common_msgs/control_msgs/control_cmd.pb.h"
 
 #include <cmath>
 
 namespace solo::modules::joystick {
-Joystick::Joystick()
+JoystickComponent::JoystickComponent()
   : fd_(-1) {
 }
 
-bool Joystick::Init() {
+bool JoystickComponent::Init() {
   std::string device_path = "/dev/input/js0";
 
   fd_ = open(device_path.c_str(), O_RDONLY | O_NONBLOCK);
@@ -31,14 +31,14 @@ bool Joystick::Init() {
 }
 
 
-void Joystick::update() {
+void JoystickComponent::update() {
   js_event event;
   while (read(fd_, &event, sizeof(event)) == sizeof(event)) {
     handleEvent(event);
   }
 }
 
-void Joystick::handleEvent(const js_event& event) {
+void JoystickComponent::handleEvent(const js_event& event) {
   if (event.type == JS_EVENT_AXIS) {
     switch (event.number) {
       case 0: // Left stick horizontal
@@ -84,12 +84,12 @@ void Joystick::handleEvent(const js_event& event) {
   }
 }
 
-void Joystick::handleSteering(const js_event& event) {
+void JoystickComponent::handleSteering(const js_event& event) {
   steering_angle_ = static_cast<double>(event.value) / 32767.0 *
                     M_PI / 4; // Scale to ±45 degrees
 }
 
-void Joystick::handleThrottle(const js_event& event) {
+void JoystickComponent::handleThrottle(const js_event& event) {
   throttle_ = static_cast<double>(event.value + 32767) / 65534.0;
   // Scale to 0 to 1
   if (square_button_pressed_) {
@@ -98,12 +98,12 @@ void Joystick::handleThrottle(const js_event& event) {
   }
 }
 
-void Joystick::handleBrake(const js_event& event) {
+void JoystickComponent::handleBrake(const js_event& event) {
   brake_ = static_cast<double>(event.value + 32767) / 65534.0 * 100.0;
   // Scale to 0-100%
 }
 
-void Joystick::handleGearSelection(const js_event& event) {
+void JoystickComponent::handleGearSelection(const js_event& event) {
   switch (event.number) {
     case 1: // Circle button (parking brake)
       parking_brake_ = !parking_brake_;

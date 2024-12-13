@@ -17,9 +17,9 @@ namespace solo::modules::joystick {
 using apollo::cyber::Component;
 using apollo::control::ControlCommand;
 
-class Joystick : public Component<ControlCommand> {
+class JoystickComponent : public Component<ControlCommand> {
 public:
-  Joystick();
+  JoystickComponent();
 
   bool Init() override;
 
