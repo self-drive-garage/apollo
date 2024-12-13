@@ -33,7 +33,9 @@ apt update && apt install -y \
     libgoogle-glog-dev \
     libproj-dev \
     libxtst6 \
-    libxtst-dev
+    libxtst-dev \
+    libpcap-dev \
+    libopenmpi-dev \
 
 # PreReq for Unicode support for Boost.Regex
 #    icu-devtools \

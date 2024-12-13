@@ -50,9 +50,7 @@ else
     ARCH_OPTIONS="-DPCL_ENABLE_SSE=OFF"
 fi
 
-# libpcap-dev
-# libopenmpi-dev
-# libboost-all-dev
+
 
 apt_get_update_and_install \
     libeigen3-dev \
@@ -69,7 +67,10 @@ apt_get_update_and_install \
     liblz4-dev \
     libfreetype6-dev \
     libpcap-dev \
-    libqhull-dev
+    libqhull-dev \
+    libpcap-dev \
+    libopenmpi-dev \
+    libboost-all-dev
 
 # if [[ -d "/usr/include/boost" ]]; then
 #     rm -rf /usr/include/boost
