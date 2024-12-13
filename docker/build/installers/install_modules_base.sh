@@ -36,9 +36,6 @@ bash ${CURR_DIR}/install_vtk.sh
 # PCL is required by [ Perception Localization Dreamview ]
 bash ${CURR_DIR}/install_pcl.sh
 
-# OpenCV depends on ffmpeg and vtk
-bash ${CURR_DIR}/install_opencv.sh
-
 
 # Clean up cache to reduce layer size.
 apt-get clean && \
