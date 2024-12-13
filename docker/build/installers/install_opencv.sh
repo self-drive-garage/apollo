@@ -61,10 +61,10 @@ apt_get_update_and_install \
 
 pip3_install numpy
 
-VERSION="4.4.0"
+VERSION="4.10.0"
 
 PKG_OCV="opencv-${VERSION}.tar.gz"
-CHECKSUM="bb95acd849e458be7f7024d17968568d1ccd2f0681d47fd60d34ffb4b8c52563"
+CHECKSUM="b2171af5be6b26f7a06b1229948bbb2bdaa74fcf5cd097e0af6378fce50a6eb9"
 DOWNLOAD_LINK="https://github.com/opencv/opencv/archive/${VERSION}.tar.gz"
 download_if_not_cached "${PKG_OCV}" "${CHECKSUM}" "${DOWNLOAD_LINK}"
 tar xzf ${PKG_OCV}

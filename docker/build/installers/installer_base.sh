@@ -27,7 +27,7 @@ export RCFILES_DIR="/opt/apollo/rcfiles"
 export APOLLO_DIST="${APOLLO_DIST:-stable}"
 
 export PKGS_DIR="/opt/apollo/pkgs"
-export SYSROOT_DIR="/opt/apollo/sysroot"
+export SYSROOT_DIR="/usr/local"
 
 export APOLLO_PROFILE="/etc/profile.d/apollo.sh"
 export APOLLO_LD_FILE="/etc/ld.so.conf.d/apollo.conf"

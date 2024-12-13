@@ -71,10 +71,10 @@ apt_get_update_and_install \
     libpcap-dev \
     libqhull-dev
 
-if [[ -d "/usr/include/boost" ]]; then
-    rm -rf /usr/include/boost
-    cp -r /opt/apollo/sysroot/include/boost /usr/include/boost
-fi
+# if [[ -d "/usr/include/boost" ]]; then
+#     rm -rf /usr/include/boost
+#     cp -r /opt/apollo/sysroot/include/boost /usr/include/boost
+# fi
 
 # NOTE(storypku)
 # libglfw3-dev depends on libglfw3,
@@ -85,8 +85,8 @@ THREAD_NUM=$(nproc)
 # VERSION="1.11.0"
 # CHECKSUM="4255c3d3572e9774b5a1dccc235711b7a723197b79430ef539c2044e9ce65954" # 1.11.0
 
-VERSION="1.10.1"
-CHECKSUM="61ec734ec7c786c628491844b46f9624958c360012c173bbc993c5ff88b4900e" # 1.10.1
+VERSION="1.14.1"
+CHECKSUM="5dc5e09509644f703de9a3fb76d99ab2cc67ef53eaf5637db2c6c8b933b28af6" # 1.10.1
 PKG_NAME="pcl-${VERSION}.tar.gz"
 
 DOWNLOAD_LINK="https://github.com/PointCloudLibrary/pcl/archive/${PKG_NAME}"

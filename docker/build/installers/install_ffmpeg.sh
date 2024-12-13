@@ -45,7 +45,11 @@ apt_get_update_and_install \
     libvorbis-dev \
     libvpx-dev \
     libx264-dev \
-    libnuma-dev
+    libnuma-dev \
+    libass-dev \
+    libfdk-aac-dev
+
+
 
 VERSION="7.1"
 PKG_NAME="ffmpeg-${VERSION}.tar.xz"
@@ -65,7 +69,6 @@ pushd ffmpeg-${VERSION}
         --disable-static    \
         --enable-shared     \
         --disable-debug     \
-        --enable-avresample \
         --enable-libass     \
         --enable-libfdk-aac \
         --enable-libfreetype \

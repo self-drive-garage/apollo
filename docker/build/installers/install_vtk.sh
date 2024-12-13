@@ -54,8 +54,8 @@ TARGET_ARCH="$(uname -m)"
 # 1) https://src.fedoraproject.org/rpms/vtk/blob/master/f/vtk.spec
 # 2) https://vtk.org/Wiki/VTK/Building/Linux
 
-VERSION=8.2.0
-PKG_NAME="VTK-8.2.0.tar.gz"
+VERSION=9.4.0
+PKG_NAME="VTK-9.4.0.tar.gz"
 CHECKSUM="16f3ffd65fafd68fab469bcb091395bf5432617c7db27cbce86a737bf09ec5b0"
 DOWNLOAD_LINK=https://vtk.org/files/release/9.4/VTK-9.4.0.tar.gz
 
