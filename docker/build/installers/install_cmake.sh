@@ -20,7 +20,7 @@ set -e
 cd "$(dirname "${BASH_SOURCE[0]}")"
 . ./installer_base.sh
 
-VERSION="3.19.6"
+VERSION="3.31.2"
 TARGET_ARCH="$(uname -m)"
 
 function symlink_if_not_exist() {
@@ -34,11 +34,11 @@ function symlink_if_not_exist() {
 CMAKE_SH=
 CHECKSUM=
 if [[ "${TARGET_ARCH}" == "x86_64" ]]; then
-    CMAKE_SH="cmake-${VERSION}-Linux-x86_64.sh"
-    CHECKSUM="d94155cef56ff88977306653a33e50123bb49885cd085edd471d70dfdfc4f859"
+    CMAKE_SH="cmake-${VERSION}-linux-x86_64.sh"
+    CHECKSUM="b81cf3f4892683133f330cd7c016c28049b5725617db24ca8763360883545d34"
 elif [[ "${TARGET_ARCH}" == "aarch64" ]]; then
-    CMAKE_SH="cmake-${VERSION}-Linux-aarch64.sh"
-    CHECKSUM="f383c2ef96e5de47c0a55957e9af0bdfcf99d3988c17103767c9ef1b3cd8c0a9"
+    CMAKE_SH="cmake-${VERSION}-linux-aarch64.sh"
+    CHECKSUM="85cc81f782cd8b5ac346e570ad5cfba3bdbe5aa01f27f7ce6266c4cef9334255"
 fi
 
 DOWNLOAD_LINK="https://github.com/Kitware/CMake/releases/download/v${VERSION}/${CMAKE_SH}"

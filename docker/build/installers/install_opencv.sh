@@ -7,7 +7,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-# http://www.apache.org/licenses/LICENSE-2.0
+#     http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -100,7 +100,7 @@ if [ "${BUILD_CONTRIB}" = "yes" ]; then
     download_if_not_cached "${PKG_CONTRIB}" "${CHECKSUM}" "${DOWNLOAD_LINK}"
     tar xzf ${PKG_CONTRIB}
 
-    sed -i "s|https://raw.githubusercontent.com/opencv/opencv_3rdparty/.*|file://${CURR_DIR}/\"|g" \
+    sed -i "s|https://raw.githubusercontent.com/opencv/opencv_3rdparty/.*|file://${CURR_DIR}/"|g" \
         opencv_contrib-${VERSION}/modules/face/CMakeLists.txt
 fi
 
@@ -156,6 +156,7 @@ pushd "opencv-${VERSION}"
             -DOPENCV_PYTHON3_INSTALL_PATH="/usr/local/lib/python$(py3_version)/dist-packages" \
             -DOPENCV_ENABLE_NONFREE=ON \
             -DCV_TRACE=OFF \
+            -DCPU_BASELINE_DISABLE=AVX512,AVX2 \
             ${GPU_OPTIONS} \
             ${EXTRA_OPTIONS}
         make -j$(nproc)

@@ -43,7 +43,7 @@ bash ${CURR_DIR}/install_paddle_deps.sh
 
 COMPONENT="modules/prediction"
 info "Install support for [${COMPONENT}] ..."
-bash ${CURR_DIR}/install_opencv.sh gpu
+bash ${CURR_DIR}/install_opencv.sh
 
 #######################################################
 

@@ -36,25 +36,26 @@ if [[ -f /etc/apollo.conf ]]; then
     MY_STAGE="$(awk -F '=' '/^stage=/ {print $2}' /etc/apollo.conf 2>/dev/null)"
 fi
 
-if [[ "${MY_STAGE}" != "runtime" ]]; then
-    apt_get_update_and_install \
-        build-essential \
-        autoconf    \
-        automake    \
-        gcc       \
-        g++       \
-        gdb         \
-        libtool     \
-        patch       \
-        pkg-config      \
-        python3-dev     \
-        libexpat1-dev   \
-        linux-libc-dev
-    # Note(storypku):
-    # Set the last two packages to manually installed:
-    #   libexpat1-dev was required by python3-dev
-    #   linux-libc-dev was required by bazel/clang/cuda/...
-fi
+# MOVED TO DOCKERFILE
+# if [[ "${MY_STAGE}" != "runtime" ]]; then
+#     apt_get_update_and_install \
+#         build-essential \
+#         autoconf    \
+#         automake    \
+#         gcc       \
+#         g++       \
+#         gdb         \
+#         libtool     \
+#         patch       \
+#         pkg-config      \
+#         python3-dev     \
+#         libexpat1-dev   \
+#         linux-libc-dev
+#     # Note(storypku):
+#     # Set the last two packages to manually installed:
+#     #   libexpat1-dev was required by python3-dev
+#     #   linux-libc-dev was required by bazel/clang/cuda/...
+# fi
 
 ##----------------##
 ##    SUDO        ##
@@ -85,8 +86,9 @@ pip3_install -U setuptools
 pip3_install -U wheel
 
 # Kick down the ladder
-apt-get -y autoremove python3-pip
+# apt-get -y autoremove python3-pip
 
+# LETS MOVED THIS TO ONCE AT THE END
 # Clean up cache to reduce layer size.
-apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# apt-get clean && \
+#     rm -rf /var/lib/apt/lists/*
