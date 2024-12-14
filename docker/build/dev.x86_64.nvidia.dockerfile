@@ -70,7 +70,9 @@ RUN apt update && apt-get -y install apt-utils \
                                     libglvnd-dev \
                                     libxcb1-dev \
                                     libtinyxml2-dev \
-                                    libsqlite3-dev
+                                    libsqlite3-dev \
+                                    libxtst6 \
+                                    libxtst-dev
 
 RUN pip3 install pycodestyle \
                  flake8 \
