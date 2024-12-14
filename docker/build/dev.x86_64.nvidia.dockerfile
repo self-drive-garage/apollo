@@ -151,25 +151,25 @@ COPY installers/install_vtk.sh /opt/apollo/installers/install_vtk.sh
 RUN bash /opt/apollo/installers/install_vtk.sh
 
 ######################################################
-RUN info "Install support for [modules/common] ..."
+RUN echo "Install support for [modules/common] ..."
 
 COPY installers/install_osqp.sh /opt/apollo/installers/install_osqp.sh
 RUN bash /opt/apollo/installers/install_osqp.sh
 
 ######################################################
-RUN info "Install support for [modules/perception] ..."
+RUN echo "Install support for [modules/perception] ..."
 
 COPY installers/install_paddle_deps.sh /opt/apollo/installers/install_paddle_deps.sh
 RUN bash /opt/apollo/installers/install_paddle_deps.sh
 
 ######################################################
-RUN info "Install support for [modules/perception] ..."
+RUN echo "Install support for [modules/perception] ..."
 
 COPY installers/install_opencv.sh /opt/apollo/installers/install_opencv.sh
 RUN bash /opt/apollo/installers/install_opencv.sh
 
 #######################################################
-RUN info "Install support for [modules/planning] ..."
+RUN echo "Install support for [modules/planning] ..."
 
 COPY installers/install_adolc.sh /opt/apollo/installers/install_adolc.sh
 RUN bash /opt/apollo/installers/install_adolc.sh
@@ -180,19 +180,19 @@ RUN bash /opt/apollo/installers/install_ipopt.sh
 #######################################################
 
 #######################################################
-RUN info "Install support for [modules/tools] ..."
+RUN echo "Install support for [modules/tools] ..."
 
 COPY installers/install_python_modules.sh /opt/apollo/installers/install_python_modules.sh
 RUN bash /opt/apollo/installers/install_python_modules.sh
 
 ######################################################
-RUN info "Install support for [modules/teleop] ..."
+RUN echo "Install support for [modules/teleop] ..."
 
 COPY installers/install_openh264.sh /opt/apollo/installers/install_openh264.sh
 RUN bash /opt/apollo/installers/install_openh264.sh
 
 ######################################################
-RUN info "Install support for [modules/audio] ..."
+RUN echo "Install support for [modules/audio] ..."
 COPY installers/install_fftw3.sh /opt/apollo/installers/install_fftw3.sh
 RUN bash /opt/apollo/installers/install_fftw3.sh
 
