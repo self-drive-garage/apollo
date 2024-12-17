@@ -85,3 +85,14 @@ tools/FlameGraph
 modules/studio_connector
 
 #WORKSPACE
+
+*.onnx
+*.pth
+modules/perception/data/models/
+dev/
+third_party/bazel_skylib
+third_party/grpc
+third_party/rules_proto
+third_party/rules_python
+.aem/
+__MACOSX/
