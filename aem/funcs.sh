@@ -461,7 +461,7 @@ apollo_enter_hostenv() {
 export -f apollo_enter_hostenv
 
 apollo_determine_image() {
-  local image="registry.baidubce.com/apollo/apollo-dev-gpu:10.0-u22"
+  local image="registry.baidubce.com/apollo/apollo-env-gpu:10.0-u22"
   if [[ -z "${image}" ]]; then
     local repo="${APOLLO_ENV_CONTAINER_REPO:-${DOCKER_REPO}}"
     local tag="${APOLLO_ENV_CONTAINER_TAG:-${VERSION}}"
@@ -491,7 +491,7 @@ apollo_determine_image() {
       tag="${tag:-latest}"
     fi
     #image="${repo}:${tag}"
-    image="registry.baidubce.com/apollo/apollo-dev-gpu:10.0-u22"
+    image="registry.baidubce.com/apollo/apollo-env-gpu:10.0-u22"
   fi
   export APOLLO_ENV_CONTAINER_IMAGE="${image}"
   echo "${image}"

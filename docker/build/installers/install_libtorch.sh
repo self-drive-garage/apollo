@@ -36,11 +36,11 @@ CURR_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 # 5. python3 setup.py install
 # 6. mkdir libtorch_gpu && cp -r include libtorch_gpu/ && cp -r lib libtorch_gpu/ && sudo mv libtorch_gpu /usr/local/
 
-bash ${CURR_DIR}/install_mkl.sh
+# bash ${CURR_DIR}/install_mkl.sh
 
 TARGET_ARCH="$(uname -m)"
 
-sudo apt update && sudo apt install -y libopenblas-base libopenmpi-dev libomp-dev
+# sudo apt update && sudo apt install -y libopenblas-base libopenmpi-dev libomp-dev
 
 pip3 install Cython
 
@@ -66,7 +66,7 @@ fi
 download_if_not_cached "${PKG_NAME}" "${CHECKSUM}" "${DOWNLOAD_LINK}"
 
 tar xzf "${PKG_NAME}"
-mv libtorch_cpu /usr/local/libtorch_cpu
+mv libtorch_cpu-1.7.0-2-linux-x86_64 /usr/local/libtorch_cpu
 rm -f "${PKG_NAME}"
 ok "Successfully installed libtorch_cpu ${VERSION}"
 

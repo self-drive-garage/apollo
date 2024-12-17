@@ -43,7 +43,9 @@ pyyaml
 utm
 
 #Github for CI
-pygithub
+#pygithub
 
 # Data excel
-xlsxwriter
+#xlsxwriter
+
+protobuf<3.20

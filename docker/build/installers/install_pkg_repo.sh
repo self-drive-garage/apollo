@@ -29,14 +29,13 @@ sudo install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://apollo-pkg-beta.cdn.bcebos.com/neo/beta/key/deb.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/apolloauto.gpg
 sudo chmod a+r /etc/apt/keyrings/apolloauto.gpg
 
-echo \
-    "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/apolloauto.gpg] https://apollo-pkg-beta.cdn.bcebos.com/apollo/core"\
-    $(. /etc/os-release && echo "$VERSION_CODENAME") "main" | \
+echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/apolloauto.gpg] https://apollo-pkg-beta.cdn.bcebos.com/preview/jammy jammy main" | \
     sudo tee /etc/apt/sources.list.d/apolloauto.list
-sudo apt-get update
 
-apt_get_update_and_install \
-    bvar
+echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/apolloauto.gpg] https://apollo-pkg-beta.cdn.bcebos.com/apollo/core bionic main" | \
+    sudo tee -a /etc/apt/sources.list.d/apolloauto.list
+
+apt-get update && apt-get -y install bvar apollo-neo-buildtool
 
 mkdir -p /opt/apollo/neo/data/log && chmod -R 777 /opt/apollo/neo
 

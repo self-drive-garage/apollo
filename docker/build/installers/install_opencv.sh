@@ -7,7 +7,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
+# http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -70,9 +70,9 @@ download_if_not_cached "${PKG_OCV}" "${CHECKSUM}" "${DOWNLOAD_LINK}"
 tar xzf ${PKG_OCV}
 
 # https://stackoverflow.com/questions/12427928/configure-and-build-opencv-to-custom-ffmpeg-install
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${SYSROOT_DIR}/lib
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:${SYSROOT_DIR}/lib/pkgconfig
-export PKG_CONFIG_LIBDIR=$PKG_CONFIG_LIBDIR:${SYSROOT_DIR}/lib
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${SYSROOT_DIR}/lib
+# export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:${SYSROOT_DIR}/lib/pkgconfig
+# export PKG_CONFIG_LIBDIR=$PKG_CONFIG_LIBDIR:${SYSROOT_DIR}/lib
 
 # libgtk-3-dev libtbb2 libtbb-dev
 # -DWITH_GTK=ON -DWITH_TBB=ON
@@ -80,8 +80,8 @@ export PKG_CONFIG_LIBDIR=$PKG_CONFIG_LIBDIR:${SYSROOT_DIR}/lib
 GPU_OPTIONS=
 if [ "${WORKHORSE}" = "gpu" ]; then
     GPU_OPTIONS="-DWITH_CUDA=ON -DWITH_CUFFT=ON -DWITH_CUBLAS=ON -DWITH_CUDNN=ON"
-    GPU_OPTIONS="${GPU_OPTIONS} -DCUDA_PROPAGATE_HOST_FLAGS=OFF"
-    GPU_OPTIONS="${GPU_OPTIONS} -DCUDA_ARCH_BIN=${SUPPORTED_NVIDIA_SMS// /,}"
+    # GPU_OPTIONS="${GPU_OPTIONS} -DCUDA_PROPAGATE_HOST_FLAGS=OFF"
+    # GPU_OPTIONS="${GPU_OPTIONS} -DCUDA_ARCH_BIN=${SUPPORTED_NVIDIA_SMS// /,}"
     # GPU_OPTIONS="${GPU_OPTIONS} -DWITH_NVCUVID=ON"
     BUILD_CONTRIB="yes"
 else
@@ -100,7 +100,7 @@ if [ "${BUILD_CONTRIB}" = "yes" ]; then
     download_if_not_cached "${PKG_CONTRIB}" "${CHECKSUM}" "${DOWNLOAD_LINK}"
     tar xzf ${PKG_CONTRIB}
 
-    sed -i "s|https://raw.githubusercontent.com/opencv/opencv_3rdparty/.*|file://${CURR_DIR}/"|g" \
+    sed -i "s|https://raw.githubusercontent.com/opencv/opencv_3rdparty/.*|file://${CURR_DIR}/\"|g" \
         opencv_contrib-${VERSION}/modules/face/CMakeLists.txt
 fi
 
@@ -124,6 +124,8 @@ pushd "opencv-${VERSION}"
         cmake .. \
             -DCMAKE_INSTALL_PREFIX="${SYSROOT_DIR}" \
             -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_CXX_FLAGS="-march=native -mno-avx512f -mno-avx512dq -mno-avx2" \
+            -DCPU_BASELINE_DISABLE=AVX512,AVX2 \
             -DBUILD_SHARED_LIBS=ON \
             -DENABLE_PRECOMPILED_HEADERS=OFF \
             -DOPENCV_GENERATE_PKGCONFIG=ON \
@@ -156,7 +158,6 @@ pushd "opencv-${VERSION}"
             -DOPENCV_PYTHON3_INSTALL_PATH="/usr/local/lib/python$(py3_version)/dist-packages" \
             -DOPENCV_ENABLE_NONFREE=ON \
             -DCV_TRACE=OFF \
-            -DCPU_BASELINE_DISABLE=AVX512,AVX2 \
             ${GPU_OPTIONS} \
             ${EXTRA_OPTIONS}
         make -j$(nproc)

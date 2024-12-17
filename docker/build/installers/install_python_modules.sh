@@ -26,12 +26,16 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 # libgeos-dev for shapely
 # libhdf5-dev for h5py
 
-apt_get_update_and_install \
-    libgeos-dev \
-    libhdf5-dev
+# apt_get_update_and_install \
+#     libgeos-dev \
+#     libhdf5-dev
 
 # libc6-dev
 [[ -f /usr/include/xlocale.h ]] || ln -s /usr/include/locale.h /usr/include/xlocale.h
+
+pip3 install -U pip
+
+apt-get remove -y python3-blinker
 
 pip3_install -r py3_requirements.txt
 

@@ -72,7 +72,19 @@ RUN apt update && apt-get -y install apt-utils \
                                     libtinyxml2-dev \
                                     libsqlite3-dev \
                                     libxtst6 \
-                                    libxtst-dev
+                                    libxtst-dev \
+                                    libgeos-dev \
+                                    libhdf5-dev \
+                                    libtinyxml2-dev \
+                                    libpng-dev \
+                                    nasm \
+                                    git \
+                                    vim \
+                                    silversearcher-ag \
+                                    libopenblas-dev \
+                                    libatlas-base-dev \
+                                    liblapack-dev \
+                                    python3-tk
 
 RUN pip3 install pycodestyle \
                  flake8 \
@@ -166,7 +178,7 @@ RUN bash /opt/apollo/installers/install_paddle_deps.sh
 RUN echo "Install support for [modules/perception] ..."
 
 COPY installers/install_opencv.sh /opt/apollo/installers/install_opencv.sh
-RUN bash /opt/apollo/installers/install_opencv.sh
+RUN bash /opt/apollo/installers/install_opencv.sh gpu
 
 #######################################################
 RUN echo "Install support for [modules/planning] ..."
@@ -180,9 +192,9 @@ RUN bash /opt/apollo/installers/install_ipopt.sh
 #######################################################
 
 #######################################################
-RUN echo "Install support for [modules/tools] ..."
-
+#RUN echo "Install support for [modules/tools] ..."
 COPY installers/install_python_modules.sh /opt/apollo/installers/install_python_modules.sh
+COPY installers/py3_requirements.txt /opt/apollo/installers/py3_requirements.txt
 RUN bash /opt/apollo/installers/install_python_modules.sh
 
 ######################################################
@@ -196,24 +208,43 @@ RUN echo "Install support for [modules/audio] ..."
 COPY installers/install_fftw3.sh /opt/apollo/installers/install_fftw3.sh
 RUN bash /opt/apollo/installers/install_fftw3.sh
 
-# RUN bash /opt/apollo/installers/install_drivers_deps.sh build
-# RUN bash /opt/apollo/installers/install_dreamview_deps.sh us
-# RUN bash /opt/apollo/installers/install_contrib_deps.sh build
-# RUN bash /opt/apollo/installers/install_gpu_support.sh
-# RUN bash /opt/apollo/installers/install_release_deps.sh
-# RUN bash /opt/apollo/installers/install_tkinter.sh
-# RUN bash /opt/apollo/installers/post_install.sh dev
+######################################################
+RUN echo "Install support for [dreamview] ..."
+COPY installers/install_node.sh /opt/apollo/installers/install_node.sh
+COPY installers/install_yarn.sh /opt/apollo/installers/install_yarn.sh
+COPY installers/install_dreamview_deps.sh /opt/apollo/installers/install_dreamview_deps.sh
+RUN bash /opt/apollo/installers/install_dreamview_deps.sh us
 
-# RUN bash /opt/apollo/installers/install_pkg_repo.sh
+######################################################
+RUN echo "Install support for [install_patchelf] ..."
+COPY installers/install_patchelf.sh /opt/apollo/installers/install_patchelf.sh
+RUN bash /opt/apollo/installers/install_patchelf.sh
 
-# COPY rcfiles/setup.sh /opt/apollo/neo/
+
+######################################################
+RUN echo "Install support for [pytorch] ..."
+COPY installers/install_magma.sh /opt/apollo/installers/install_magma.sh
+RUN bash /opt/apollo/installers/install_magma.sh
+
+COPY installers/install_mkl.sh /opt/apollo/installers/install_mkl.sh
+RUN bash /opt/apollo/installers/install_mkl.sh
+
+COPY installers/install_libtorch.sh /opt/apollo/installers/install_libtorch.sh
+RUN bash /opt/apollo/installers/install_libtorch.sh
+
+
+
+COPY installers/install_pkg_repo.sh /opt/apollo/installers/install_pkg_repo.sh
+RUN bash /opt/apollo/installers/install_pkg_repo.sh
+
+COPY rcfiles/setup.sh /opt/apollo/neo/
 
 # RUN bash /opt/apollo/installers/install_rsdriver.sh
 # RUN bash /opt/apollo/installers/install_livox_driver.sh
 # RUN bash /opt/apollo/installers/install_hesai2_driver.sh
 # RUN bash /opt/apollo/installers/install_vanjee_driver.sh
 
-# RUN pip3 install tensorflow==2.10.0
+RUN pip3 install tensorflow==2.10.0
 
 # CLEAN UP
 RUN apt-get clean && \
