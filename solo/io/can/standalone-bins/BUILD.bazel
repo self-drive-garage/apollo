@@ -1,0 +1,81 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
+
+cc_binary(
+    name = "WriteCANMessagesWithParquet",
+    srcs = ["WriteCANMessagesWithParquet.cpp"],
+    deps = [
+        "//platform/io:SocketOps",
+        "//platform/io/can:CANClient",
+        "//platform/io/can:SocketCANDevice",
+        "//platform/io/can:SocketCANMessage",
+        "//platform/io/can/dbc:CANDatabase",
+        "//platform/io/can/dbc:SubaruGlobalCANDBC",
+        "@parquet",
+        "@spdlog",
+    ],
+)
+
+cc_binary(
+    name = "VerifyDisableECU",
+    srcs = ["VerifyDisableECU.cpp"],
+    deps = [
+        "//platform/io:SocketOps",
+        "//platform/io/can:CANClient",
+        "//platform/io/can:SocketCANDevice",
+        "//platform/io/can:SocketCANMessage",
+        "//platform/io/can/dbc:CANDatabase",
+        "//platform/io/can/dbc:SubaruGlobalCANDBC",
+        "@spdlog",
+    ],
+)
+
+cc_binary(
+    name = "Generate_ES_Messages",
+    srcs = ["Generate_ES_Messages.cpp"],
+    deps = [
+        "//platform/io:SocketOps",
+        "//platform/io/can:CANClient",
+        "//platform/io/can:SocketCANDevice",
+        "//platform/io/can:SocketCANMessage",
+        "//platform/io/can/dbc:CANDatabase",
+        "//platform/io/can/dbc:SubaruGlobalCANDBC",
+        "@parquet",
+        "@spdlog",
+    ],
+)
+
+cc_binary(
+    name = "RotateSteeringWheelTest",
+    srcs = [
+        "LIMITS.hpp",
+        "RotateSteeringWheelTest.cpp",
+        "CanSignalRateCalculator.hpp",
+        #        "messages/DisableEyeSightECU.hpp",
+    ],
+    deps = [
+        "//platform/io:SocketOps",
+        "//platform/io/can:CANClient",
+        "//platform/io/can:SocketCANDevice",
+        "//platform/io/can:SocketCANMessage",
+        "//platform/io/can/dbc:CANDatabase",
+        "//platform/io/can/dbc:SubaruGlobalCANDBC",
+        "@parquet",
+        "@spdlog",
+    ],
+)
+
+#cc_binary(
+#    name = "WriteCANMessagesWithCycloneDDS",
+#    srcs = ["WriteCANMessagesWithCycloneDDS.cpp"],
+#    deps = [
+#        "//platform/io:SocketOps",
+#        "//platform/io/can:CANClient",
+#        "//platform/io/can:SocketCANDevice",
+#        "//platform/io/can:SocketCANMessage",
+#        "//platform/io/can/dbc:CANDatabase",
+#        "//platform/io/can/dbc:SubaruGlobalCANDBC",
+#        "//platform/transport:Transport",
+#        "@cyclone_dds",
+#        "@spdlog",
+#    ],
+#)

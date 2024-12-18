@@ -584,6 +584,11 @@ apollo_create_container_volume_options() {
 
   # volume of user shared configurations' and resources' directories
   volume_opts+=('-v' "${HOME}/.apollo:/home/${APOLLO_ENV_CONTAINER_USER}/.apollo")
+  volume_opts+=('-v' "${HOME}/CLion-2024.3.1:/home/${APOLLO_ENV_CONTAINER_USER}/CLion-2024.3.1")
+  volume_opts+=('-v' "${HOME}/.cache:/home/${APOLLO_ENV_CONTAINER_USER}/.cache")
+  volume_opts+=('-v' "${HOME}/.config:/home/${APOLLO_ENV_CONTAINER_USER}/.config")
+  volume_opts+=('-v' "${HOME}/.local:/home/${APOLLO_ENV_CONTAINER_USER}/.local")
+
 
   # custom volumes
   for x in "${APOLLO_ENV_MOUNTS[@]}"; do
@@ -674,7 +679,14 @@ export -f apollo_container_download_arm_lib
 apollo_container_created_post_action() {
   local init_packages=(
     'apollo-neo-buildtool'
+    'libboost-all-dev'
+    'libgflags-dev'
+    'libgoogle-glog-dev'
+    'libproj-dev'
+    'libxtst6'
+    'libxtst-dev'
   )
+  
   aem_path="${AEM_HOME}"
   container_aem_path="/opt/apollo/aem"
 
@@ -683,7 +695,7 @@ apollo_container_created_post_action() {
   apollo_execute_cmd_in_container "ln -snf ${container_aem_path}/auto_complete.bash /etc/bash_completion.d/aem"
   apollo_execute_cmd_in_container "ln -snf ${container_aem_path}/auto_complete.zsh /usr/share/zsh/functions/Completion/Unix/_aem"
   apollo_execute_cmd_in_container "[[ $(uname -m) == "aarch64" ]] && [[ -e /sys/kernel/debug ]] && chmod +rx /sys/kernel/debug"
-  apollo_execute_cmd_in_container "apt update && apt install --only-upgrade -y ${init_packages[@]}"
+  apollo_execute_cmd_in_container "apt update && apt install -y ${init_packages[@]}"
   apollo_execute_cmd_in_container "chmod 777 /opt/apollo/neo/packages/buildtool/latest/setup.sh"
   apollo_execute_cmd_in_container "mkdir -pv /opt/apollo/neo/etc && chmod 777 -R /opt/apollo/neo/etc"
   apollo_container_created_start_user

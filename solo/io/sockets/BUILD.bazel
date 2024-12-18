@@ -1,0 +1,16 @@
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "ISocketOps",
+    hdrs = ["ISocketOps.hpp"],
+    deps = [":Status"],
+)
+
+cc_library(
+    name = "SocketOps",
+    srcs = ["SocketOps.cpp"],
+    hdrs = ["SocketOps.hpp"],
+    deps = [
+        ":ISocketOps",
+    ],
+)

@@ -1,0 +1,44 @@
+// MIT License
+//
+// ...
+
+/// @file CANDBCSchema.idl
+/// @brief This file contains the definition of the CANDBCSignal and CANDBCMessage classes in IDL format.
+/// @date 2024
+/// @details Defines the CANDBCSignal and CANDBCMessage types which represent the schema of CAN DBC signals and messages.
+
+module platform {
+  module io {
+    module can {
+
+      /// @enum CANBus
+      /// @brief Enumerates the CAN buses.
+      enum CANBus {
+        CANBus_A,
+        CANBus_B,
+        CANBus_C
+      };
+
+      module dbc {
+
+        /// @struct CANDBCSignal
+        /// @brief Represents a CAN DBC signal.
+        struct CANDBCSignal {
+          uint64 timestampNanoSeconds; ///< Timestamp in nanoseconds.
+          string name;                ///< Name of the signal.
+          double value;               ///< Latest value of the signal.
+        };
+
+        /// @struct CANDBCMessage
+        /// @brief Represents a CAN DBC message.
+        struct CANDBCMessage {
+          uint32 address;                     ///< Address of the message.
+          string name;                        ///< Name of the message.
+          platform::io::can::CANBus canBus;   ///< CAN bus of the message.
+          sequence<CANDBCSignal> signals;     ///< Vector of signals in the message.
+        };
+
+      }; // module dbc
+    }; // module can
+  }; // module io
+}; // module platform

@@ -1,0 +1,21 @@
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "Status",
+    hdrs = ["Status.hpp"],
+    deps = [],
+)
+
+cc_library(
+    name = "IOInterface",
+    hdrs = ["IOInterface.hpp"],
+    deps = [":Status"],
+)
+
+
+
+cc_library(
+    name = "MockSocketOps",
+    srcs = ["mocks/MockSocketOps.hpp"],
+    deps = ["@com_google_googletest//:gtest"],
+)

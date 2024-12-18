@@ -22,6 +22,7 @@ else
   # being run
   export AEM_HOME=${AEM_HOME:-$(dirname $(realpath $0))}
 fi
+export AEM_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export AEM_SYS_SHARE=${AEM_SYS_SHARE:-${AEM_HOME}/share/aem}
 export AEM_VERSION='10.0.0-rc1-r3'
 
