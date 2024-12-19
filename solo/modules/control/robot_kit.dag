@@ -2,10 +2,10 @@
     module_config {
     module_library : "solo/modules/joystick/libjoystick.so"
     components {
-        class_name : "JoystickComponent"
+        class_name : "AckermanRobotKitComponent"
         config {
-            name : "joystick"
-            writers {
+            name : "robot_kit"
+            readers {
                 channel: "VehicleControlCommand"
             }
         }

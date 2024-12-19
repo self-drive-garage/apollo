@@ -15,10 +15,12 @@ apollo_cc_library(
 apollo_cc_library(
     name = "SteeringServoMotorController",
     srcs = [
-        "PCA9685Config.hpp",
         "SteeringServoMotorController.cpp",
     ],
-    hdrs = ["SteeringServoMotorController.hpp"],
+    hdrs = [
+        "PCA9685Config.hpp",
+        "SteeringServoMotorController.hpp",
+    ],
     deps = [
         "//modules/common/status",
     ],

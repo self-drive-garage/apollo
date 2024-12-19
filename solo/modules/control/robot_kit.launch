@@ -1,0 +1,9 @@
+<cyber>
+    <module>
+        <name>robot_kit</name>
+        <dag_conf>/solo/modules/control/robot_kit.dag</dag_conf>
+        <cpuprofile>/apollo/example_cpu.prof</cpuprofile>
+        <memprofile>/apollo/example_mem.prof</memprofile>
+        <process_name>robot_kit</process_name>
+    </module>
+</cyber>
