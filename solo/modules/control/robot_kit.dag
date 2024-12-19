@@ -1,6 +1,6 @@
 # Define all coms in DAG streaming.
     module_config {
-    module_library : "solo/modules/joystick/libjoystick.so"
+    module_library : "solo/modules/control/libAckermanRobotKitComponent.so"
     components {
         class_name : "AckermanRobotKitComponent"
         config {
