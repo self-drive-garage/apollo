@@ -1,0 +1,12 @@
+load("//tools:apollo_package.bzl", "apollo_cc_binary")
+
+apollo_cc_binary(
+    name = "joystick_main",
+    srcs = ["joystick_main.cpp"],
+    deps = [
+        "//cyber",
+        "//modules/common_msgs/control_msgs:control_cmd_cc_proto",
+        "//solo/modules/control:AckermanRobotKit",
+        "//solo/modules/joystick:Joystick",
+    ],
+)

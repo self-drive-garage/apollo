@@ -1,16 +1,31 @@
 load("//tools:apollo_package.bzl", "apollo_cc_library", "apollo_cc_test", "apollo_component", "apollo_package")
 load("//tools:cpplint.bzl", "cpplint")
 
-apollo_component(
-    name = "libAckermanRobotKitComponent.so",
-    srcs = ["AckermanRobotKitComponent.cpp"],
-    hdrs = ["AckermanRobotKitComponent.hpp"],
-    visibility = ["//visibility:private"],
+#apollo_component(
+#    name = "libAckermanRobotKitComponent.so",
+#    srcs = ["AckermanRobotKitComponent.cpp"],
+#    hdrs = ["AckermanRobotKitComponent.hpp"],
+#    visibility = ["//visibility:private"],
+#    deps = [
+#        ":AckermanRobotKit",
+#        "//cyber",
+#        "//modules/common_msgs/control_msgs:control_cmd_cc_proto",
+#        "//modules/guardian:libguardian_component.so",
+#        "//solo/modules/drivers/motors:SabertoothMotorDriver",
+#        "//solo/modules/drivers/motors:SteeringServoMotorController",
+#    ],
+#)
+
+apollo_cc_library(
+    name = "AckermanRobotKit",
+    srcs = ["AckermanRobotKit.cpp"],
+    hdrs = ["AckermanRobotKit.hpp"],
+    visibility = ["//visibility:public"],
     deps = [
         "//cyber",
+        "//modules/common_msgs/control_msgs:control_cmd_cc_proto",
+        #        "//modules/guardian:libguardian_component.so",
         "//solo/modules/drivers/motors:SabertoothMotorDriver",
         "//solo/modules/drivers/motors:SteeringServoMotorController",
-        "//modules/common_msgs/control_msgs:control_cmd_cc_proto",
-        "//modules/guardian:libguardian_component.so",
     ],
 )
