@@ -17,50 +17,8 @@
 STATUS = 2
 
 SOURCE = {
-    "3rd-camera-library" : {
-        "path": "//third_party/camera_library",
-        "depends": [
-            
-        ],
-    },
-    "perception-model-mask-pillars-torch" : {
-        "path": "//modules/perception/data/models/mask_pillars_torch",
-        "depends": [
-            
-        ],
-    },
-    "perception-model-cnnseg128-caffe" : {
-        "path": "//modules/perception/data/models/cnnseg128_caffe",
-        "depends": [
-            
-        ],
-    },
-    "perception-model-point-pillars-torch" : {
-        "path": "//modules/perception/data/models/point_pillars_torch",
-        "depends": [
-            
-        ],
-    },
-    "perception-model-cnnseg64-caffe" : {
-        "path": "//modules/perception/data/models/cnnseg64_caffe",
-        "depends": [
-            
-        ],
-    },
-    "perception-model-centerpoint-paddle" : {
-        "path": "//modules/perception/data/models/center_point_paddle",
-        "depends": [
-            
-        ],
-    },
-    "perception-model-bevnet" : {
-        "path": "//modules/perception/data/models/apollo_bevnet_onnx",
-        "depends": [
-            
-        ],
-    },
-    "perception-model-cnnseg16-caffe" : {
-        "path": "//modules/perception/data/models/cnnseg16_caffe",
+    "3rd-rtklib" : {
+        "path": "//third_party/rtklib",
         "depends": [
             
         ],
@@ -71,93 +29,14 @@ SOURCE = {
             
         ],
     },
-    "perception-model-tl-detection-caffe" : {
-        "path": "//modules/perception/data/models/tl_detection_caffe",
-        "depends": [
-            
-        ],
-    },
-    "perception-data-conf" : {
-        "path": "//modules/perception/data/conf",
-        "depends": [
-            
-        ],
-    },
-    "perception-data-flag" : {
-        "path": "//modules/perception/data/flag",
-        "depends": [
-            
-        ],
-    },
-    "3rd-tf2" : {
-        "path": "//third_party/tf2",
-        "depends": [
-            "3rd-boost",
-            
-        ],
-    },
-    "perception-launch" : {
-        "path": "//modules/perception/launch",
-        "depends": [
-            
-        ],
-    },
-    "3rd-can-card-library" : {
-        "path": "//third_party/can_card_library",
-        "depends": [
-            
-        ],
-    },
-    "perception-data-params" : {
-        "path": "//modules/perception/data/params",
-        "depends": [
-            
-        ],
-    },
-    "calibration" : {
-        "path": "//modules/calibration",
-        "depends": [
-            
-        ],
-    },
-    "perception-model-vertical-caffe" : {
-        "path": "//modules/perception/data/models/vertical_caffe",
-        "depends": [
-            
-        ],
-    },
-    "perception-model-horizontal-caffe" : {
-        "path": "//modules/perception/data/models/horizontal_caffe",
+    "perception-model-yolo" : {
+        "path": "//modules/perception/data/models/3d-r4-half_caffe",
         "depends": [
             
         ],
     },
     "perception-model-radar4d" : {
         "path": "//modules/perception/data/models/point_pillars_radar4d_torch",
-        "depends": [
-            
-        ],
-    },
-    "3rd-rtklib" : {
-        "path": "//third_party/rtklib",
-        "depends": [
-            
-        ],
-    },
-    "perception-model-quadrate-caffe" : {
-        "path": "//modules/perception/data/models/quadrate_caffe",
-        "depends": [
-            
-        ],
-    },
-    "perception-model-yolox3d" : {
-        "path": "//modules/perception/data/models/yolox3d_onnx",
-        "depends": [
-            
-        ],
-    },
-    "perception-model-yolo" : {
-        "path": "//modules/perception/data/models/3d-r4-half_caffe",
         "depends": [
             
         ],
@@ -169,13 +48,6 @@ BINARY = {
     "bazel-extend-tools" : {
         "path": "//tools",
         "targets": [
-            
-        ],
-    },
-    "3rd-boost" : {
-        "path": "//third_party/boost",
-        "targets": [
-            "@boost//:boost",
             
         ],
     },

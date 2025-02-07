@@ -23,6 +23,7 @@ export SCRIPT_DIR=$(
   cd $(dirname $0)
   pwd
 )
+
 export SCRIPT_REAL_DIR=$(dirname $(realpath $0))
 [[ -f ${SCRIPT_REAL_DIR}/env.sh ]] && source ${SCRIPT_REAL_DIR}/env.sh
 [[ -f ${SCRIPT_REAL_DIR}/funcs.sh ]] && source ${SCRIPT_REAL_DIR}/funcs.sh

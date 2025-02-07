@@ -123,7 +123,7 @@ docker_image_exists() {
 export -f docker_image_exists
 
 docker_pull() {
-  local img="${1}"
+  local img="apollo-env-gpu:10.0-u22"
   local name_0="${img##/*}"
   if ! check_dns_host_valid "${name_0}"; then
     # no registry specified, check if enable GEO_REGISTRY
@@ -556,11 +556,11 @@ apollo_create_container_volume_options() {
   # localtime
   volume_opts+=('-v' '/etc/localtime:/etc/localtime:ro')
 
-  volume_opts+=('-v' "/apollo-solo/CLion-2024.3/clion-2024.3:/home/${APOLLO_ENV_CONTAINER_USER}/clion")
+  volume_opts+=('-v' "/home/samehm/CLion-2024.3.1/clion-2024.3.1:/home/${APOLLO_ENV_CONTAINER_USER}/clion")
 
-  volume_opts+=('-v' "/apollo-solo/.config:/home/${APOLLO_ENV_CONTAINER_USER}/.config")
+  volume_opts+=('-v' "/home/samehm/.config:/home/${APOLLO_ENV_CONTAINER_USER}/.config")
 
-  volume_opts+=('-v' "/apollo-solo/.cache:/home/${APOLLO_ENV_CONTAINER_USER}/.cache")
+  volume_opts+=('-v' "/home/samehm/.cache:/home/${APOLLO_ENV_CONTAINER_USER}/.cache")
   
   # auca
   auca_sdk_so="/usr/lib/libapollo-auca-sdk.so.1"
@@ -590,7 +590,7 @@ apollo_create_container_volume_options() {
 
 
   # volume of user shared configurations' and resources' directories
-  volume_opts+=('-v' "/apollo-solo/.apollo:/home/${USER}/.apollo")
+  volume_opts+=('-v' "/home/samehm/.apollo:/home/${USER}/.apollo")
 
   # custom volumes
   for x in "${APOLLO_ENV_MOUNTS[@]}"; do
@@ -774,6 +774,7 @@ export -f apollo_save_envconfig
 apollo_create_container() {
 
   image="$(apollo_determine_image)"
+  image="apollo-env-gpu:10.0-u22"
   if ! docker_pull "${image}"; then
     error "failed to pull docker image ${DEV_IMAGE}"
     exit 1
