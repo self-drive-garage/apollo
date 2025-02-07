@@ -27,7 +27,7 @@ apollo_cc_library(
         "init.h",
     ],
     includes = ["."],
-    linkopts = ["-lrt"],
+    linkopts = ["-lrt", "-lbvar"],
     visibility = ["//visibility:public"],
     deps = [
         ":cyber_binary",

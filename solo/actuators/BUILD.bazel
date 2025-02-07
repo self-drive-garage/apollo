@@ -1,0 +1,16 @@
+#package(default_visibility = ["//visibility:public"])
+
+#cc_library(
+#    name = "VehicleMotionController",
+#    srcs = ["VehicleMotionController.cpp"],
+#    hdrs = ["VehicleMotionController.hpp"],
+#    deps = [
+#        ":SabertoothMotorController",
+#        ":SteeringServoMotorController",
+#        "//platform/io:Status",
+#        "//platform/messages:VehicleControlCommand",
+#        "//platform/transport:Transport",
+#        "//platform/transport:TransportSubscriber",
+#        "@spdlog",
+#       ],
+#)

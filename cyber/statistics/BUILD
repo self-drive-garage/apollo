@@ -5,7 +5,7 @@ apollo_cc_library(
     name = "apollo_statistics",
     srcs = ["statistics.cc"],
     hdrs = ["statistics.h"],
-    linkopts = ["-lbvar"],
+    linkopts = ["-L /usr/local/lib -lbvar"],
     deps = [
         "//cyber/common:cyber_common",
         "//cyber/proto:role_attributes_cc_proto",

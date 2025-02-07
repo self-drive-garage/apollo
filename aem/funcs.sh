@@ -124,6 +124,13 @@ export -f docker_image_exists
 
 docker_pull() {
   local img="${1}"
+
+  # if [[ "$(uname -m)" == "x86_64" ]]; then
+  #   img="apollo-env-gpu:10.0-u22"
+  # else
+  #   img="registry.baidubce.com/apollo/apollo-env-arm:10.0-u20"
+  # fi
+
   local name_0="${img##/*}"
   if ! check_dns_host_valid "${name_0}"; then
     # no registry specified, check if enable GEO_REGISTRY
@@ -428,13 +435,14 @@ apollo_exec_container() {
   # Allow X server connection from container.
   xhost +local:root 1> /dev/null 2>&1
 
+  local apt_cmd="sudo apt-get update && sudo apt-get install -y libxtst6 libxtst-dev libgflags-dev libgoogle-glog-dev libproj-dev &&" 
   docker exec \
     -u "${APOLLO_ENV_CONTAINER_USER}" \
     "${envs[@]}" \
     -w "${APOLLO_ENV_WORKROOT}" \
     -it \
     "${APOLLO_ENV_CONTAINER_NAME}" \
-    /bin/bash -c "${cmd} $*"
+    /bin/bash -c "${apt_cmd} ${cmd} $*"
 
   xhost -local:root 1> /dev/null 2>&1
 }
@@ -462,6 +470,11 @@ export -f apollo_enter_hostenv
 
 apollo_determine_image() {
   local image="${APOLLO_ENV_CONTAINER_IMAGE}"
+  # if [[ "$(uname -m)" == "x86_64" ]]; then
+  #   image="apollo-env-gpu:10.0-u22"
+  # else
+  #   image="registry.baidubce.com/apollo/apollo-env-arm:10.0-u20"
+  # fi
   if [[ -z "${image}" ]]; then
     local repo="${APOLLO_ENV_CONTAINER_REPO:-${DOCKER_REPO}}"
     local tag="${APOLLO_ENV_CONTAINER_TAG:-${VERSION}}"
@@ -554,6 +567,12 @@ apollo_create_container_volume_options() {
   volume_opts+=('-v' '/lib/modules:/lib/modules')
   # localtime
   volume_opts+=('-v' '/etc/localtime:/etc/localtime:ro')
+
+  volume_opts+=('-v' "/home/samehm/CLion-2024.3.1/clion-2024.3.1:/home/${APOLLO_ENV_CONTAINER_USER}/clion")
+
+  volume_opts+=('-v' "/home/samehm/.config:/home/${APOLLO_ENV_CONTAINER_USER}/.config")
+
+  volume_opts+=('-v' "/home/samehm/.cache:/home/${APOLLO_ENV_CONTAINER_USER}/.cache")
 
   # auca
   auca_sdk_so="/usr/lib/libapollo-auca-sdk.so.1"
@@ -837,6 +856,8 @@ apollo_enter_container() {
   # Allow X server connection from container.
   xhost +local:root 1> /dev/null 2>&1
 
+  local apt_cmd="sudo apt-get update && sudo apt-get install -y libxtst6 libxtst-dev" 
+
   # TODO: support custom shell
   docker exec \
     -u "${APOLLO_ENV_CONTAINER_USER}" \
@@ -844,7 +865,7 @@ apollo_enter_container() {
     -w "${APOLLO_ENV_WORKROOT}" \
     -it \
     "${APOLLO_ENV_CONTAINER_NAME}" \
-    /bin/bash
+    /bin/bash -c "${apt_cmd} $*"
 
   xhost -local:root 1> /dev/null 2>&1
 }

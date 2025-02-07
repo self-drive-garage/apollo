@@ -1,0 +1,16 @@
+# Define all coms in DAG streaming.
+    module_config {
+    module_library : "solo/joystick/libJoystickComponent.so"
+    components {
+        class_name : "JoystickComponent"
+        config {
+            name : "joystick"
+            readers {
+                channel: "/apollo/prediction"
+            }
+            readers {
+                channel: "/apollo/test"
+            }
+        }
+      }
+    }

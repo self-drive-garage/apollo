@@ -1,4 +1,4 @@
-FROM iregistry.baidu-int.com/apollo-internal/nvidia-cuda:11.8.0-cudnn8-devel-ubuntu22.04
+FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 
 RUN apt update && apt install -y python3 \
     python3-pip \
@@ -7,9 +7,15 @@ RUN apt update && apt install -y python3 \
     rsync \
     figlet \
     nethogs \
-    sysstat
+    sysstat \
+    libboost-all-dev \
+    libgflags-dev \
+    libgoogle-glog-dev \
+    libproj-dev \
+    libxtst6 \
+    libxtst-dev
 
-RUN pip3 install --default-timeout 30 --trusted-host pip.baidu-int.com -i http://pip.baidu-int.com/simple/ ansible watchdog yattag bokeh flask
+RUN pip3 install --default-timeout 30 ansible watchdog yattag bokeh flask
 
 COPY aem/galaxy-requirements.yaml /galaxy-requirements.yaml
 
@@ -31,11 +37,17 @@ RUN ansible-galaxy collection install -f -r galaxy-requirements.yaml && \
     apt clean && \
     rm -rf /var/cache/apollo/distfiles/* /var/cache/apt/archives/*
 
+COPY docker/build/installers /opt/installers
+
+RUN /opt/installers/install_osqp.sh
+
+RUN echo 'fs.inotify.max_user_watches=524288' | tee -a /etc/sysctl.conf && sysctl -p
+
 RUN touch .installed && chmod 777 .installed
 
 RUN chmod 777 /etc/profile.d/debuginfod.sh
 
-RUN pip3 install --upgrade --force-reinstall protobuf==3.19.6 grpcio-tools==1.48.0 grpcio==1.48.0 -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN pip3 install --upgrade --force-reinstall protobuf==3.19.6 grpcio-tools==1.48.0 grpcio==1.48.0
 
 RUN for i in 71 72 73 74 75;do sed  -i "${i}s/^[[:space:]]*#define/#define/" "/usr/local/cuda/include/cusolver_common.h";done
 

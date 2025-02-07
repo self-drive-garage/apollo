@@ -21,6 +21,11 @@ apollo_cc_binary(
         "//cyber",
         "//cyber/examples/proto:examples_cc_proto",
     ],
+    linkopts = [ # if the binary needs these as well
+        "-L/usr/local/lib -lgflags",  # Add this line
+        "-L/usr/local/lib -lglog",   # Add this line
+        "-L/usr/local/lib -lproj",   # Add this line
+    ],
 )
 
 apollo_cc_binary(

@@ -207,7 +207,6 @@ bool LoadLibrary(const std::string& library_path, ClassLoader* loader) {
   static std::recursive_mutex loader_mutex;
   {
     std::lock_guard<std::recursive_mutex> lck(loader_mutex);
-
     try {
       SetCurActiveClassLoader(loader);
       SetCurLoadingLibraryName(library_path);

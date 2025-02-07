@@ -1,0 +1,9 @@
+<cyber>
+    <module>
+        <name>joystick</name>
+        <dag_conf>solo/joystick/joystick.dag</dag_conf>
+        <cpuprofile>/apollo/example_cpu.prof</cpuprofile>
+        <memprofile>/apollo/example_mem.prof</memprofile>
+        <process_name>joystick</process_name>
+    </module>
+</cyber>
