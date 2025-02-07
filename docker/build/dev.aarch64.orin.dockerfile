@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/l4t-jetpack:r36.3.0
+FROM nvcr.io/nvidia/l4t-jetpack:r35.2.1 
 
 ENV CUDA_LITE 11.4
 
@@ -130,6 +130,7 @@ RUN bash /opt/apollo/installers/install_shfmt.sh
 # INSTALL VIZ TOOLS
 ####################
 COPY installers/install_qt.sh /opt/apollo/installers/install_qt.sh
+COPY installers/install_qt5_qtbase.sh /opt/apollo/installers/install_qt5_qtbase.sh
 RUN bash /opt/apollo/installers/install_qt.sh build 22.04
 
 COPY installers/install_pcl.sh /opt/apollo/installers/install_pcl.sh

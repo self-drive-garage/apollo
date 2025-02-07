@@ -123,7 +123,11 @@ docker_image_exists() {
 export -f docker_image_exists
 
 docker_pull() {
-  local img="apollo-env-gpu:10.0-u22"
+  if [[ "$(uname -m)" == "x86_64" ]]; then
+    img="apollo-env-gpu:10.0-u22"
+  else
+    img="registry.baidubce.com/apollo/apollo-env-arm:10.0-u20"
+  fi
   local name_0="${img##/*}"
   if ! check_dns_host_valid "${name_0}"; then
     # no registry specified, check if enable GEO_REGISTRY
@@ -774,7 +778,11 @@ export -f apollo_save_envconfig
 apollo_create_container() {
 
   image="$(apollo_determine_image)"
-  image="apollo-env-gpu:10.0-u22"
+  if [[ "$(uname -m)" == "x86_64" ]]; then
+    image="apollo-env-gpu:10.0-u22"
+  else
+    image="registry.baidubce.com/apollo/apollo-env-arm:10.0-u20"
+  fi
   if ! docker_pull "${image}"; then
     error "failed to pull docker image ${DEV_IMAGE}"
     exit 1
