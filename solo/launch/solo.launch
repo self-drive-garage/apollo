@@ -1,0 +1,9 @@
+<cyber>
+    <module>
+        <name>solo</name>
+        <process_name>solo</process_name>
+
+        <dag_conf>joystick/joystick.dag</dag_conf>
+        
+    </module>
+</cyber>

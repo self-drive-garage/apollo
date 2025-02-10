@@ -27,16 +27,22 @@ bool JoystickComponent::Init() {
     AERROR << "Exception while initializing publisher " << e.what();
     return false;
   }
+
+  async_result_ = apollo::cyber::Async(&JoystickComponent::update, this);
   return true;
 }
 
 
-bool JoystickComponent::Proc(const std::shared_ptr<ControlCommand>& msg) {
-  js_event event;
-  while (read(fd_, &event, sizeof(event)) == sizeof(event)) {
-    handleEvent(event);
+void JoystickComponent::update() {
+  running_.exchange(true);
+  while (!apollo::cyber::IsShutdown()) {
+    js_event event;
+    while (read(fd_, &event, sizeof(event)) == sizeof(event)) {
+      // AINFO << "Joystick event: " << " " << event.number << " " << event.value;
+      handleEvent(event);
+    }
+    apollo::cyber::SleepFor(std::chrono::milliseconds(1));
   }
-  return true;
 }
 
 void JoystickComponent::handleEvent(const js_event& event) {

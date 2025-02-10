@@ -10,18 +10,19 @@
 #include <optional>
 #include <stdexcept>
 #include <string>
+#include <atomic>
+#include <future>
 
 namespace solo::joystick {
+
 using apollo::cyber::Component;
 using apollo::control::ControlCommand;
 
-class JoystickComponent : public Component<ControlCommand> {
+class JoystickComponent : public Component<> {
 public:
   JoystickComponent();
 
   bool Init() override;
-
-  bool Proc(const std::shared_ptr<ControlCommand>& msg) override;
 
   void update();
 
@@ -41,10 +42,10 @@ private:
   short gear_position_ = 1; // 1 = Drive, 0 = Neutral, -1 = Reverse
 
   std::shared_ptr<apollo::cyber::Writer<ControlCommand>> writer_;
+  std::future<void> async_result_;
+  std::atomic<bool> running_ = {false};
 };
 
 CYBER_REGISTER_COMPONENT(JoystickComponent)
 
 } //solo::joystick
-
-
